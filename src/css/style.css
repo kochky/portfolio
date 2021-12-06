@@ -7,6 +7,7 @@ body {
   font-family: "Roboto", sans-serif;
   width: 100%;
   user-select: none;
+  overflow-x: hidden;
 }
 
 section {
@@ -25,6 +26,7 @@ section {
 * {
   margin: 0;
   padding: 0;
+  cursor: none;
 }
 
 @keyframes opacityQuick {
@@ -48,36 +50,8 @@ section {
     transform: translateX(0);
   }
 }
-@keyframes translateY {
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-@keyframes scaleX {
-  1% {
-    opacity: 1;
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
 .opacityQuick {
   animation: opacityQuick 300ms forwards 4000ms;
-}
-
-.scaleX {
-  transform: scaleY(0);
-  transform-origin: bottom center;
-  animation: scaleX 350ms forwards 1000ms;
-}
-
-.translateY {
-  opacity: 0;
-  transform: translateY(10vh);
-  animation: translateY 400ms forwards;
 }
 
 .front-container {
@@ -128,8 +102,8 @@ section {
 .mirror {
   color: black;
   background-color: white;
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border-radius: 25px;
   position: absolute;
   z-index: 10;
@@ -139,7 +113,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: all 0ms ease-in 400ms;
+  transform: all 400ms ease-in 100ms;
 }
 .mirror__presentation, .presentation {
   width: 100vw;
@@ -170,6 +144,7 @@ section {
   top: 10%;
   height: 200px;
   font-family: "Permanent Marker";
+  z-index: -2;
 }
 .mirror__presentation__container__text, .presentation__container__text {
   position: absolute;
@@ -190,30 +165,23 @@ section {
 
 .presentation__container__profil-picture {
   position: absolute;
+  z-index: -1;
   min-width: 500px;
   min-height: 500px;
   background: url("../images/profil.jpg") no-repeat;
   background-size: cover;
   border-radius: 5%;
   opacity: 1;
-  z-index: -1;
   top: 0;
   left: 0;
   transition: all 300ms ease-out;
-}
-
-.test {
-  width: 20px;
-  height: 20px;
-  border-radius: 20px;
-  background-color: white;
-  position: absolute;
 }
 
 .description {
   width: 100vw;
   height: 100vh;
   min-height: 900px;
+  background-color: blue;
   display: flex;
   align-items: center;
   justify-content: center;
