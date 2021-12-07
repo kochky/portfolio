@@ -26,7 +26,6 @@ section {
 * {
   margin: 0;
   padding: 0;
-  cursor: none;
 }
 
 @keyframes opacityQuick {
@@ -105,7 +104,7 @@ section {
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  position: absolute;
+  position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
@@ -113,7 +112,6 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: all 400ms ease-in 100ms;
 }
 .mirror__presentation, .presentation {
   width: 100vw;
@@ -127,7 +125,6 @@ section {
   position: absolute;
   left: 0;
   top: 0;
-  transform: all 2000ms ease-out;
   min-height: 800px;
 }
 .mirror__presentation__container, .presentation__container {
@@ -163,6 +160,9 @@ section {
   min-width: 880px;
 }
 
+.presentation__container__underline {
+  cursor: crosshair;
+}
 .presentation__container__profil-picture {
   position: absolute;
   z-index: -1;

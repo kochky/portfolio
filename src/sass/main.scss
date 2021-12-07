@@ -28,7 +28,7 @@ font-family: 'Monoton', monospace;
 *{
     margin:0;
     padding:0;
-    cursor:none;
+    // cursor:none;
 }
 
 @mixin container {
@@ -129,13 +129,13 @@ font-family: 'Monoton', monospace;
     width:50px;
     height:50px;
     border-radius: 25px;
-    position:absolute;
+    position:fixed;
     z-index:10;
     top:0;
     left:0;
     overflow: hidden;
     @include flex;
-    transform:all 400ms ease-in 100ms;
+    // transition:all 300ms ease-out;
     &__presentation{
         @include container;
         width:100vw;
@@ -144,8 +144,8 @@ font-family: 'Monoton', monospace;
         position:absolute;
         left:0;
         top:0;
-        transform:all 2000ms ease-out;
         min-height:800px;
+        // transition:all 300ms ease-out;
         &__container {
             width:100vw;
             height:100vh;
@@ -185,6 +185,7 @@ font-family: 'Monoton', monospace;
         @extend .mirror__presentation__container;
             &__underline{
             @extend .mirror__presentation__container__underline;
+            cursor: crosshair;
         }
         &__text {
             @extend .mirror__presentation__container__text;
