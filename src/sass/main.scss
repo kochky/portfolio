@@ -59,32 +59,9 @@ font-family: 'Monoton', monospace;
     100% {transform:translateX(0)}   
 }
 
-// @keyframes translateY {
-//     100%{transform:translateY(0); opacity:1}
-// }
-
-// @keyframes scaleX {
-//     1%{opacity:1;transform:scaleY(0)}
-//     100%{transform:scaleY(1);opacity:1}   
-// }
-
-
 .opacityQuick{
     animation:opacityQuick 300ms forwards 4000ms; 
 }
-
-// .scaleX{
-//     transform:scaleY(0);
-//     transform-origin: bottom center;
-//     animation: scaleX 350ms forwards 1000ms;
-// }
-
-// .translateY{
-//     opacity:0;
-//     transform:translateY(10vh);
-//     animation: translateY 400ms forwards ;
-// }
-
 
 .front-container{
     @include container;
@@ -120,22 +97,27 @@ font-family: 'Monoton', monospace;
 .homepage{
     position:relative;
     @include container;
-    @include flex;  
+    @include flex; 
+}
+
+.invert {
+    color:rgba(0,0,0,0.5);
+    z-index:3;
+    cursor: crosshair;
 }
 
 .mirror{
     color:black;
     background-color: white;
-    width:50px;
-    height:50px;
+    // width:50px;
+    // height:50px;
     border-radius: 25px;
     position:fixed;
-    z-index:10;
+    z-index:1;
     top:0;
     left:0;
     overflow: hidden;
     @include flex;
-    // transition:all 300ms ease-out;
     &__presentation{
         @include container;
         width:100vw;
@@ -145,7 +127,6 @@ font-family: 'Monoton', monospace;
         left:0;
         top:0;
         min-height:800px;
-        // transition:all 300ms ease-out;
         &__container {
             width:100vw;
             height:100vh;
@@ -154,21 +135,18 @@ font-family: 'Monoton', monospace;
                 text-decoration: underline;
                 text-transform: uppercase;
                 position:absolute;
-                top:10%;
+                top:30%;
                 height:200px;
                 font-family: "Permanent Marker";
-                z-index:-2;
             }
             &__text{
                 position:absolute;
-                z-index:-2;
                 top:55%;
                 text-align: end;
                 width:90%;
                 text-transform:uppercase;
                 &__span {
                     position:absolute;
-                    z-index:-2;
                     top:63%;
                     text-align: start;
                     width:90%;
@@ -195,16 +173,16 @@ font-family: 'Monoton', monospace;
         }
             &__profil-picture {
             position:absolute;
-            z-index:-1;
+            z-index:2;
             min-width:500px;
             min-height:500px;
             background: url("../images/profil.jpg") no-repeat;
             background-size: cover;
             border-radius: 5%;
-            opacity:1;
             top:0;
             left:0;
-            transition:all 300ms ease-out ;
+            transition:opacity 300ms
+
         }
     }
 }
@@ -212,10 +190,30 @@ font-family: 'Monoton', monospace;
 
 .description {
     @include container;
-    background-color: blue;
     display:flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    position:relative;
+    overflow:hidden;
+    box-sizing: border-box;
+    z-index:-1;
+    &__title{
+        font-size:8rem;
+        position:absolute;
+        top:30vh;
+        z-index:99;
+        transform-origin: 50% 40vh;
+    }
+    &__div {
+        position:absolute;
+        padding: 0 10%;
+        font-size:2rem;
+        // display:flex;
+        // width:max-content;
+        // position:absolute;
+        bottom:10%;
+    }
 }
 
 .projet {
