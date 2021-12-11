@@ -14,9 +14,9 @@ body {
     scrollbar-width:none;
     font-family:"Aeonik", sans-serif;
     width:100%;
-     min-width:768px;  
+    min-width:768px;  
     user-select: none;
-    //overflow-x: hidden;   
+    overflow: hidden;   
 }
 
 .font-monoton {
@@ -24,7 +24,7 @@ font-family: 'Monoton', monospace;
 }
 
 ::-webkit-scrollbar {
-  // display:none;
+   display:none;
 }
 
 *{
@@ -114,7 +114,7 @@ font-family: 'Monoton', monospace;
     background-color: white;
     border-radius: 25px;
     position:fixed;
-    z-index:1;
+    z-index:2;
     top:0;
     left:0;
     overflow: hidden;
@@ -162,6 +162,7 @@ font-family: 'Monoton', monospace;
 
 .presentation {
     @extend .mirror__presentation;
+    overflow: hidden;
     &__container {
         @extend .mirror__presentation__container;
             &__underline{
@@ -176,7 +177,7 @@ font-family: 'Monoton', monospace;
         }
             &__profil-picture {
             position:absolute;
-            z-index:2;
+            z-index:3;
             min-width:500px;
             min-height:500px;
             background: url("../ressources/images/profil.jpg") no-repeat;
@@ -184,7 +185,8 @@ font-family: 'Monoton', monospace;
             border-radius: 5%;
             top:0;
             left:0;
-            transition:opacity 300ms
+            transition:opacity 300ms;
+            cursor:crosshair;
 
         }
     }
@@ -192,13 +194,12 @@ font-family: 'Monoton', monospace;
 
 .vertical-container {
     display:flex;
-   overflow-y: hidden;
+    overflow-y: hidden;
     width:200vw;
-    z-index:-1,
+    z-index:1,
 }
 
 .description {
-    background-color: blue;
     @include container;
     display:flex;
     align-items: center;
@@ -227,7 +228,33 @@ font-family: 'Monoton', monospace;
     @include container;
     background-color: green;
     @include flex;
-    //position:absolute;
+    &__title{
+        position:absolute;
+        top:10%;
+    }
+    &__container {
+        width:30%;
+        position:absolute;
+        top:0;
+        right:5%;
+    }
+}
+
+.card-container {
+    width:400x;
+    height:400px;
+    background-color: white;
+    color:black;
+    border-radius: 5%;
+    border:1px solid black;
+    overflow: hidden;
+    &__title {
+        height:10%;
+        border-bottom:2px solid black;
+        padding-left:10px;
+
+        
+    }
 }
 
 .parcours {

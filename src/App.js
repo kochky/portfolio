@@ -12,6 +12,7 @@ function App() {
     const [opacityHover,setOpacityHover]=useState(0)
     const [cursor,setCursor]=useState(true)
     const [mirrorStyle,setMirrorStyle]=useState({width:"50px",height:"50px"})
+    const [data,setData]=useState()
    
     const ref=useRef(null)
 
@@ -21,7 +22,7 @@ function App() {
       var picture = document.querySelector(".presentation__container__profil-picture");
       var pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
       var mouse = { x: pos.x, y: pos.y };
-      var speed = 0.1;
+      var speed = 0.5;
       var fpms = 60 / 1000;
 
       var xPres= gsap.quickSetter(cont, "x", "px");
@@ -43,12 +44,12 @@ function App() {
         var dt = 1.0 - Math.pow(1.0 - speed, delta); 
         pos.x += (mouse.x - pos.x) * dt;
         pos.y += (mouse.y - pos.y) * dt;
-        xSet(pos.x-25);
-        ySet(pos.y-25);
-        xPres(-pos.x+25)
-        yPres(-pos.y+25+ref.current.getBoundingClientRect().top)
-        picturexSet(pos.x-25)
-        pictureySet(pos.y-25-ref.current.getBoundingClientRect().top)
+        xSet(pos.x+20);
+        ySet(pos.y+20);
+        xPres(-pos.x-20)
+        yPres(-pos.y-20+ref.current.getBoundingClientRect().top)
+        picturexSet(pos.x+20)
+        pictureySet(pos.y+20-ref.current.getBoundingClientRect().top)
       });
       setTimeout(()=>{setCursor(true)},4000);
       return ()=>{
@@ -134,9 +135,7 @@ function App() {
           end:"80%",
           scrub:true,
           pin:true,
-          anticipatePin:1,
-      
-          
+          anticipatePin:1,       
         })
 
 
@@ -235,8 +234,6 @@ function App() {
 
     },[cursor])
 
-
-
   return (
 
     !cursor? <div className="front-container"><span className="front-container__hello">Hello<span className="front-container__hello__effect"><span className="front-container__hello__effect__opacity">|</span></span></span><br/></div>:(
@@ -274,8 +271,7 @@ function App() {
       <section className='vertical-container'>
         <article className="description " >
             <h1 className="description__title">Who am I ???</h1>
-            <div className="description__div">            <a href="https://github.com/kochky/KochChristopher_2_25032020"> clic</a>
-
+            <div className="description__div"> 
               <p>J'ai 33 ans, j'habite Marseille ! </p>
               <p className='description__div__second'>Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
               <p className='description__div__third'>J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
@@ -286,9 +282,10 @@ function App() {
         </article>
         
         <article className="projet" >
-            <h1 >Mes projets</h1>
-            {ProjectsGH.map(projet=><Card key={projet.id} title={projet.title} description={projet.description} buttons={projet.buttons}/>)}
-           
+            <h1 className="projet__title">Mes projets</h1>
+            <div className="projet__container">
+            {ProjectsGH.map(projet=><Card setData={setData} key={projet.id} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>)}
+            </div>
         </article>
       </section>
  
