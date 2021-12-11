@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-
+import { TextPlugin } from "gsap/TextPlugin";
+import ProjectsGH from './data/ProjectsGH';
+import Card from './components/Card';
 import  "./css/style.css"
+
 
 function App() {
    
@@ -61,6 +64,7 @@ function App() {
       if(cursor){
 
           gsap.registerPlugin(ScrollTrigger)
+          gsap.registerPlugin(TextPlugin);
         
           gsap.to(".developpeur",{
             scrollTrigger:{
@@ -127,29 +131,108 @@ function App() {
           animation:desTl,
           trigger:'.presentation',
           start:"top top",
-          end:"70%",
+          end:"80%",
           scrub:true,
           pin:true,
           anticipatePin:1,
+      
+          
         })
 
-        const titleTl=gsap.timeline();
-        titleTl.from(".description__title",{rotate:'-90',opacity:0,x:"-100vh"});
-          ScrollTrigger.create({
-            animation:titleTl,
-            trigger:".description__title",
-            start:"bottom bottom",
-            endTrigger:".description",
-            end:"top top",
-            toggleActions:"restart none reverse reverse",
-            scrub:3,
-            markers:true
+
+        const bigTl=gsap.timeline()
+
+        const textTl=gsap.timeline({scrollTrigger:{
+          trigger:".description__div",
+          start:"bottom bottom",
+          end:"bottom bottom",
+          toggleActions:"restart none reverse reverse",
+          scrub:2,
+
+        }});
+            let sections=gsap.utils.toArray("section");
+            let test=gsap.utils.toArray("article");
+       
+            bigTl
+            .to(sections,{
+              ease:"none",
+              scrollTrigger:{
+                trigger:"main",
+                scrub:1,
+                snap:1,
+                end:()=>"+="+document.querySelector("main").offsetHeight
+              }
             })
-      }
-     
-    
+            .from(".description__title",{rotate:'-50',x:"-100vw", scrollTrigger:{
+              trigger:".description",
+              start:"top bottom",
+              endTrigger:".description",
+              end:"top top",
+              toggleActions:"restart none reverse reverse",
+              scrub:3,
+              }})
+            
+            .from(".description__div",{x:"100vw", scrollTrigger:{
+              trigger:".description__title",
+              start:"top 50%",
+              //endTrigger:".description",
+              end:"top 50%",
+              toggleActions:"restart none reverse reverse",
+              scrub:2,
+              duration:1
+
+            }})
+
+            .to(test,{
+              xPercent:-100*(test.length-1),
+              ease:"none",
+
+              scrollTrigger:{
+                trigger:".vertical-container",
+                pin:true,
+                scrub:1,
+               snap:1,
+                end:()=>"+="+document.querySelector(".vertical-container").offsetWidth
+              }
+            })
+           
+          textTl .from(".description__div__second",{opacity:0,ease:"none",
       
-   
+          })
+            .from(".description__div__third",{opacity:0, ease:"none",
+    
+          })
+            .from(".description__div__fourth",{opacity:0,  ease:"none"
+       
+          })
+            .from(".description__div__fifth",{opacity:0,  ease:"none"
+      
+          })
+            .from(".description__div__sixth",{opacity:0, ease:"none"
+         
+          })
+          
+           
+
+    
+
+            // .to(".description__div__second", {duration: 2,
+            //    text:"Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.", ease: "none"})
+            // .to(".description__div__third", {duration: 3, 
+            //   text: "J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms. Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio.", ease: "none"})
+            // .to(".description__div__fourth", {duration: 1,
+            //    text: "Je continue à monter en compétences avec des projets persos.", ease: "none"})
+            // .to(".description__div__fifth", {duration: 1, 
+            //   text: "En ce moment, j'apprends React Native, Next.js, et typescript.", ease: "none"})
+
+          
+
+
+            
+       
+      
+      }
+
     },[cursor])
 
 
@@ -159,7 +242,7 @@ function App() {
     !cursor? <div className="front-container"><span className="front-container__hello">Hello<span className="front-container__hello__effect"><span className="front-container__hello__effect__opacity">|</span></span></span><br/></div>:(
     
     <main>
-      <div  className="homepage" >
+       <div  className="homepage" >
        <div className="mirror"style={mirrorStyle}> 
           <div className="mirror__presentation cont" >
             <div className="mirror__presentation__container" >
@@ -172,7 +255,7 @@ function App() {
                  Koch
               </span>
               <div  style={{opacity:opacityHover}} className="presentation__container__profil-picture"></div>                     
-              <span className="mirror__presentation__container__text developpeur2" > développeur <br/></span><span className="mirror__presentation__container__text__span front-end2 font-monoton">front-end.</span>
+              <span className="mirror__presentation__container__text developpeur2" > développeur <br/></span><span className="mirror__presentation__container__text__span front-end2 ">front-end.</span>
             </div>
           </div>
         </div>
@@ -183,37 +266,40 @@ function App() {
               Christopher<br/>
               Koch</span>
             <span  className={"presentation__container__text  developpeur"}> développeur <br/></span>
-            <span className="presentation__container__text__span font-monoton front-end ">front-end.</span> 
+            <span className="presentation__container__text__span front-end ">front-end.</span> 
           </div>
         </section>
       </div>
 
+      <section className='vertical-container'>
+        <article className="description " >
+            <h1 className="description__title">Who am I ???</h1>
+            <div className="description__div">            <a href="https://github.com/kochky/KochChristopher_2_25032020"> clic</a>
 
-      <section className="description" >
-          <h1 className="description__title">Who am I ???</h1>
-          <div className="description__div">
-            <p>J'ai 33 ans, j'habite Marseille ! </p>
-            <p>Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion et pour l'épanouissement.</p>
-            <p>J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms. Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio. </p>
-            <p>Je continue à monter en compétences avec des projets persos.</p>
-            <p>En ce moment, j'apprends React Native, Next.js, et typescript</p>
-          </div>
-         
-
+              <p>J'ai 33 ans, j'habite Marseille ! </p>
+              <p className='description__div__second'>Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
+              <p className='description__div__third'>J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
+              <p className='description__div__fourth' >Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio. </p>
+              <p className='description__div__fifth'>Je continue à monter en compétences avec des projets persos.</p>
+              <p className='description__div__sixth'>En ce moment, j'apprends React Native, Next.js, et typescript. </p>
+            </div>
+        </article>
+        
+        <article className="projet" >
+            <h1 >Mes projets</h1>
+            {ProjectsGH.map(projet=><Card key={projet.id} title={projet.title} description={projet.description} buttons={projet.buttons}/>)}
+           
+        </article>
       </section>
-      
-      {/* <section className="projet">
-          <h1 >Mes projets</h1>
-      </section>
-
-      <section className="parcours">
+ 
+       {/* <section className="parcours">
           <div className="parcours__blocHorizontal">
               <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__one"><h1>mon parcours</h1></div>
               <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__two">tes</div>
               <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__three">test</div>
               <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__four">test</div>
           </div>
-      </section> */}
+      </section>  */}
     </main>
   ))
 }

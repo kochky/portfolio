@@ -1,20 +1,22 @@
+
+@font-face{
+    font-family:"Aeonik";
+    src: url("../ressources/police/Aeonik-Regular.otf") format("opentype");
+    font-style: normal;
+}
+
+
 body {
     background-color: black;
     position:relative;
     color:white;
     -ms-overflow-style:none;
     scrollbar-width:none;
-    font-family: 'Roboto', sans-serif;
+    font-family:"Aeonik", sans-serif;
     width:100%;
-    // min-width:1050px;  
+     min-width:768px;  
     user-select: none;
-    overflow-x: hidden;
-
-}
-
-section {
-    min-width:900px;
-    height:100vh;
+    //overflow-x: hidden;   
 }
 
 .font-monoton {
@@ -22,7 +24,7 @@ font-family: 'Monoton', monospace;
 }
 
 ::-webkit-scrollbar {
-    display:none;
+  // display:none;
 }
 
 *{
@@ -34,7 +36,8 @@ font-family: 'Monoton', monospace;
 @mixin container {
     width:100vw;
     height:100vh;
-    min-height:900px;
+    min-height:768px;
+    min-width:768px;  
 }
 
 @mixin flex {
@@ -46,7 +49,6 @@ font-family: 'Monoton', monospace;
 @keyframes opacityQuick {
     100% {opacity:1}  
 }
-
 
 @keyframes disappear {
     100% {opacity:0}  
@@ -71,7 +73,7 @@ font-family: 'Monoton', monospace;
     left:0;
     top:0;
     transform:all 2000ms ease-out;
-    min-height:800px;
+
     &__hello {
         font-size:1rem;
         position:absolute;
@@ -94,6 +96,7 @@ font-family: 'Monoton', monospace;
         }
     }
 }
+
 .homepage{
     position:relative;
     @include container;
@@ -109,8 +112,6 @@ font-family: 'Monoton', monospace;
 .mirror{
     color:black;
     background-color: white;
-    // width:50px;
-    // height:50px;
     border-radius: 25px;
     position:fixed;
     z-index:1;
@@ -126,7 +127,9 @@ font-family: 'Monoton', monospace;
         position:absolute;
         left:0;
         top:0;
-        min-height:800px;
+        @media screen and (max-height:1024px) {
+            font-size:4rem;    
+        }
         &__container {
             width:100vw;
             height:100vh;
@@ -135,7 +138,7 @@ font-family: 'Monoton', monospace;
                 text-decoration: underline;
                 text-transform: uppercase;
                 position:absolute;
-                top:30%;
+                top:20%;
                 height:200px;
                 font-family: "Permanent Marker";
             }
@@ -176,7 +179,7 @@ font-family: 'Monoton', monospace;
             z-index:2;
             min-width:500px;
             min-height:500px;
-            background: url("../images/profil.jpg") no-repeat;
+            background: url("../ressources/images/profil.jpg") no-repeat;
             background-size: cover;
             border-radius: 5%;
             top:0;
@@ -187,8 +190,15 @@ font-family: 'Monoton', monospace;
     }
 }
 
+.vertical-container {
+    display:flex;
+   overflow-y: hidden;
+    width:200vw;
+    z-index:-1,
+}
 
 .description {
+    background-color: blue;
     @include container;
     display:flex;
     align-items: center;
@@ -197,9 +207,9 @@ font-family: 'Monoton', monospace;
     position:relative;
     overflow:hidden;
     box-sizing: border-box;
-    z-index:-1;
+    
     &__title{
-        font-size:8rem;
+        font-size:6rem;
         position:absolute;
         top:30vh;
         z-index:99;
@@ -208,10 +218,7 @@ font-family: 'Monoton', monospace;
     &__div {
         position:absolute;
         padding: 0 10%;
-        font-size:2rem;
-        // display:flex;
-        // width:max-content;
-        // position:absolute;
+        font-size:3rem;
         bottom:10%;
     }
 }
@@ -219,13 +226,9 @@ font-family: 'Monoton', monospace;
 .projet {
     @include container;
     background-color: green;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    @include flex;
+    //position:absolute;
 }
-
-
-
 
 .parcours {
     width:100vh;

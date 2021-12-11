@@ -1,26 +1,22 @@
+@font-face {
+  font-family: "Aeonik";
+  src: url("../ressources/police/Aeonik-Regular.otf") format("opentype");
+  font-style: normal;
+}
 body {
   background-color: black;
   position: relative;
   color: white;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  font-family: "Roboto", sans-serif;
+  font-family: "Aeonik", sans-serif;
   width: 100%;
+  min-width: 768px;
   user-select: none;
-  overflow-x: hidden;
-}
-
-section {
-  min-width: 900px;
-  height: 100vh;
 }
 
 .font-monoton {
   font-family: "Monoton", monospace;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 * {
@@ -56,7 +52,8 @@ section {
 .front-container {
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -65,7 +62,6 @@ section {
   left: 0;
   top: 0;
   transform: all 2000ms ease-out;
-  min-height: 800px;
 }
 .front-container__hello {
   font-size: 1rem;
@@ -92,7 +88,8 @@ section {
   position: relative;
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,7 +117,8 @@ section {
 .mirror__presentation, .presentation {
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -129,7 +127,11 @@ section {
   position: absolute;
   left: 0;
   top: 0;
-  min-height: 800px;
+}
+@media screen and (max-height: 1024px) {
+  .mirror__presentation, .presentation {
+    font-size: 4rem;
+  }
 }
 .mirror__presentation__container, .presentation__container {
   width: 100vw;
@@ -142,7 +144,7 @@ section {
   text-decoration: underline;
   text-transform: uppercase;
   position: absolute;
-  top: 30%;
+  top: 20%;
   height: 200px;
   font-family: "Permanent Marker";
 }
@@ -169,7 +171,7 @@ section {
   z-index: 2;
   min-width: 500px;
   min-height: 500px;
-  background: url("../images/profil.jpg") no-repeat;
+  background: url("../ressources/images/profil.jpg") no-repeat;
   background-size: cover;
   border-radius: 5%;
   top: 0;
@@ -177,10 +179,19 @@ section {
   transition: opacity 300ms;
 }
 
+.vertical-container {
+  display: flex;
+  overflow-y: hidden;
+  width: 200vw;
+  z-index: -1;
+}
+
 .description {
+  background-color: blue;
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,10 +199,9 @@ section {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  z-index: -1;
 }
 .description__title {
-  font-size: 8rem;
+  font-size: 6rem;
   position: absolute;
   top: 30vh;
   z-index: 99;
@@ -200,14 +210,15 @@ section {
 .description__div {
   position: absolute;
   padding: 0 10%;
-  font-size: 2rem;
+  font-size: 3rem;
   bottom: 10%;
 }
 
 .projet {
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
   background-color: green;
   display: flex;
   align-items: center;
@@ -238,7 +249,8 @@ section {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  min-height: 900px;
+  min-height: 768px;
+  min-width: 768px;
 }
 .parcours__blocHorizontal__slide__one {
   background: blue;
