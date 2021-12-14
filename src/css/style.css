@@ -10,14 +10,23 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
   font-family: "Aeonik", sans-serif;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   min-width: 768px;
   user-select: none;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-.font-monoton {
-  font-family: "Monoton", monospace;
+.font-bungee {
+  font-family: "Bungee Shade", cursive;
+}
+
+.font-bebas {
+  font-family: "Bebas Neue", cursive;
+}
+
+.font-major {
+  font-family: "Major Mono Display", monospace;
 }
 
 ::-webkit-scrollbar {
@@ -27,6 +36,10 @@ body {
 * {
   margin: 0;
   padding: 0;
+}
+
+ul {
+  list-style: none;
 }
 
 @keyframes opacityQuick {
@@ -59,7 +72,6 @@ body {
   height: 100vh;
   min-height: 768px;
   min-width: 768px;
-  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,83 +112,56 @@ body {
   justify-content: center;
 }
 
-.invert {
-  color: rgba(0, 0, 0, 0.5);
-  z-index: 3;
-  cursor: crosshair;
-}
-
 .mirror {
-  color: black;
   background-color: white;
   border-radius: 25px;
   position: fixed;
-  z-index: 2;
+  z-index: 9999;
   top: 0;
   left: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  mix-blend-mode: difference;
+  pointer-events: none;
 }
-.mirror__presentation, .presentation {
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(var(--move-initial), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--move-final), 0, 0);
+  }
+}
+.presentation {
   width: 100vw;
   height: 100vh;
   min-height: 768px;
   min-width: 768px;
-  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 0.5vw solid white;
+  box-sizing: border-box;
+  border-bottom: none;
   font-size: 8rem;
   position: absolute;
   left: 0;
   top: 0;
+  overflow: hidden;
 }
 @media screen and (max-height: 1024px) {
-  .mirror__presentation, .presentation {
+  .presentation {
     font-size: 4rem;
   }
 }
-.mirror__presentation__container, .presentation__container {
+.presentation__container {
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.mirror__presentation__container__underline, .presentation__container__underline {
-  text-decoration: underline;
-  text-transform: uppercase;
-  position: absolute;
-  top: 20%;
-  height: 200px;
-  font-family: "Permanent Marker";
-}
-.mirror__presentation__container__text, .presentation__container__text {
-  position: absolute;
-  top: 55%;
-  text-align: end;
-  width: 90%;
-  text-transform: uppercase;
-}
-.mirror__presentation__container__text__span, .presentation__container__text__span {
-  position: absolute;
-  top: 63%;
-  text-align: start;
-  width: 90%;
-  min-width: 880px;
-}
-
-.presentation {
-  overflow: hidden;
-}
-.presentation__container__underline {
-  cursor: crosshair;
-}
 .presentation__container__profil-picture {
   position: absolute;
-  z-index: 3;
   min-width: 500px;
   min-height: 500px;
   background: url("../ressources/images/profil.jpg") no-repeat;
@@ -185,17 +170,72 @@ body {
   top: 0;
   left: 0;
   transition: opacity 300ms;
+}
+.presentation__container__underline {
+  text-decoration: underline;
+  text-transform: uppercase;
+  position: absolute;
+  top: 20%;
+  height: 200px;
+  font-family: "Permanent Marker";
   cursor: crosshair;
+}
+.presentation__container__marquee {
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  --move-final: calc(-25% );
+  height: 2vh;
+  background-color: white;
+}
+.presentation__container__marquee__inner {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  height: 100%;
+  transform: translate3d(var(--move-initial), 0, 0);
+  animation: marquee 5s linear infinite;
+}
+.presentation__container__marquee__inner span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vh;
+  padding: 0 2vw;
+  color: black;
+  vertical-align: center;
+  font-family: "Major Mono Display", monospace;
+}
+.presentation__container__text {
+  position: absolute;
+  top: 55%;
+  text-align: end;
+  width: 90%;
+  text-transform: uppercase;
+}
+.presentation__container__text__span {
+  position: absolute;
+  top: 63%;
+  text-align: start;
+  width: 90%;
+  min-width: 880px;
+}
+.presentation__container__text__span span {
+  color: #E1A624;
 }
 
 .vertical-container {
   display: flex;
-  overflow-y: hidden;
-  width: 200vw;
-  z-index: 1;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  min-height: 768px;
+  min-width: 768px;
 }
 
 .description {
+  border: 0.5vw solid white;
+  box-sizing: border-box;
   width: 100vw;
   height: 100vh;
   min-height: 768px;
@@ -206,20 +246,43 @@ body {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  box-sizing: border-box;
+  min-width: 100vw;
 }
 .description__title {
   font-size: 6rem;
   position: absolute;
   top: 30vh;
-  z-index: 99;
   transform-origin: 50% 40vh;
+}
+.description__picture {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background: url("../ressources/images/qrcode.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: translate(-90%, 0);
 }
 .description__div {
   position: absolute;
-  padding: 0 10%;
+  padding: 0 1%;
+  width: 60%;
   font-size: 3rem;
   bottom: 10%;
+}
+.description__div p {
+  margin-bottom: 20px;
+}
+.description__div__line {
+  width: 5px;
+  border: 1px solid #E1A624;
+  background-color: black;
+  position: absolute;
+  left: 0;
+  height: 100%;
 }
 
 .projet {
@@ -227,75 +290,100 @@ body {
   height: 100vh;
   min-height: 768px;
   min-width: 768px;
-  background-color: green;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 400vw;
+  border-radius: 50px 0 0 50px;
+  overflow: hidden;
+  background-color: white;
 }
 .projet__title {
   position: absolute;
   top: 10%;
+  left: 5vw;
+  right: 0;
+  left: 0;
+  color: black;
+  font-size: 10vw;
 }
 .projet__container {
-  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 0;
-  right: 5%;
+  left: 0;
 }
 
 .card-container {
-  width: 400x;
-  height: 400px;
-  background-color: white;
+  min-width: 33.33vw;
+  height: 600px;
   color: black;
   border-radius: 5%;
-  border: 1px solid black;
   overflow: hidden;
+  position: relative;
 }
 .card-container__title {
-  height: 10%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom: 2px solid black;
-  padding-left: 10px;
+  font-size: 3rem;
+  margin-bottom: 5%;
+}
+.card-container__description {
+  padding-left: 15%;
+  height: 60px;
+}
+.card-container__tools {
+  padding-left: 15%;
+  height: 48px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-container__tools li {
+  margin-right: 10px;
+  color: #E1A624;
+}
+.card-container__picture {
+  margin-top: 30px;
+  margin-bottom: 24px;
+  height: 330px;
+  margin: 0 auto;
+  max-width: 256px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.card-container__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 20%;
+  justify-content: space-around;
+  color: black;
+}
+.card-container__buttons a {
+  color: black;
 }
 
 .parcours {
-  width: 100vh;
-  height: 100vw;
-  transform: rotate(-90deg) translateX(-100vh);
-  transform-origin: top left;
-  overflow-x: hidden;
-}
-.parcours__blocHorizontal {
-  background-color: yellow;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  width: 400vw;
-  height: 100vh;
-  transform: rotate(90deg) translateY(-100vh);
-  transform-origin: top left;
-}
-.parcours__blocHorizontal__slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: blue;
   width: 100vw;
   height: 100vh;
   min-height: 768px;
   min-width: 768px;
+  position: relative;
 }
-.parcours__blocHorizontal__slide__one {
-  background: blue;
-}
-.parcours__blocHorizontal__slide__two {
+
+.contact {
   background-color: red;
-}
-.parcours__blocHorizontal__slide__three {
-  background-color: antiquewhite;
-}
-.parcours__blocHorizontal__slide__four {
-  background: grey;
+  width: 100vw;
+  height: 100vh;
+  min-height: 768px;
+  min-width: 768px;
 }
 
 /*# sourceMappingURL=style.css.map */

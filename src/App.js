@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { TextPlugin } from "gsap/TextPlugin";
 import ProjectsGH from './data/ProjectsGH';
 import Card from './components/Card';
+
 import  "./css/style.css"
 
 
@@ -12,52 +13,34 @@ function App() {
     const [opacityHover,setOpacityHover]=useState(0)
     const [cursor,setCursor]=useState(true)
     const [mirrorStyle,setMirrorStyle]=useState({width:"50px",height:"50px"})
-    const [data,setData]=useState()
    
-    const ref=useRef(null)
-
     useEffect(() => {
-      var cont = document.querySelector(".cont");
+      gsap.set(".mirror", {xPercent: -50, yPercent: -50});
       var mirror = document.querySelector(".mirror");
-      var picture = document.querySelector(".presentation__container__profil-picture");
       var pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
       var mouse = { x: pos.x, y: pos.y };
-      var speed = 0.5;
+      var speed = 0.1;
       var fpms = 60 / 1000;
 
-      var xPres= gsap.quickSetter(cont, "x", "px");
-      var yPres= gsap.quickSetter(cont, "y", "px");
       var xSet = gsap.quickSetter(mirror, "x", "px");
       var ySet = gsap.quickSetter(mirror, "y", "px");
-      var picturexSet = gsap.quickSetter(picture, "x", "px");
-      var pictureySet = gsap.quickSetter(picture, "y", "px");
       function position(e){
         mouse.x = e.x;
         mouse.y = e.y;  
       }
       window.addEventListener("mousemove",(e)=>position(e));
-      window.addEventListener("wheel",(e)=>position(e));
-
       gsap.ticker.add((time, deltaTime) => {
-        
         var delta = deltaTime * fpms;
         var dt = 1.0 - Math.pow(1.0 - speed, delta); 
         pos.x += (mouse.x - pos.x) * dt;
         pos.y += (mouse.y - pos.y) * dt;
-        xSet(pos.x+20);
-        ySet(pos.y+20);
-        xPres(-pos.x-20)
-        yPres(-pos.y-20+ref.current.getBoundingClientRect().top)
-        picturexSet(pos.x+20)
-        pictureySet(pos.y+20-ref.current.getBoundingClientRect().top)
+        xSet(pos.x);
+        ySet(pos.y);
       });
       setTimeout(()=>{setCursor(true)},4000);
       return ()=>{
-        window.removeEventListener("wheel",position)
         window.removeEventListener("mousemove",position)
-
-    }
-    
+    } 
     }, [])
 
     useLayoutEffect(()=>{
@@ -73,9 +56,9 @@ function App() {
               start:"top 50%",
               end:"top 30%",
               toggleActions:"restart none reverse reverse",
-              scrub:2,
+              scrub:1,
             },
-            x:"-100vw",
+            x:"-150vw",
           });
           
           gsap.to(".front-end",{
@@ -86,31 +69,9 @@ function App() {
               toggleActions:"restart none reverse reverse",
               scrub:0.5,
             },
-            x:"100vw",
+            x:"150vw",
           });
           
-          gsap.to(".developpeur2",{
-            scrollTrigger:{
-              trigger:".developpeur",
-              start:"top 50%",
-              end:"top 30%",
-              toggleActions:"restart none reverse reverse",
-              scrub:2,
-            },
-            x:"-100vw",
-          })
-          
-          gsap.to(".front-end2",{
-            scrollTrigger:{
-              trigger:".developpeur",
-              start:"top 50%",
-              end:"top 30%",
-              toggleActions:"restart none reverse reverse",
-              scrub:0.5,
-            },
-            x:"100vw",
-          })
-
           gsap.fromTo(".name",
           {y:'-20vh'},
           {y:0},)
@@ -126,40 +87,28 @@ function App() {
           {x:0},
         )
         
-        const desTl=gsap.timeline();
-        desTl.from(".description", {yPercent:0});
-        ScrollTrigger.create({
-          animation:desTl,
-          trigger:'.presentation',
-          start:"top top",
-          end:"80%",
-          scrub:true,
-          pin:true,
-          anticipatePin:1,       
-        })
+        let sections=gsap.utils.toArray("snapDiv");
+        let articles=gsap.utils.toArray("article");
 
-
-        const bigTl=gsap.timeline()
-
-        const textTl=gsap.timeline({scrollTrigger:{
-          trigger:".description__div",
-          start:"bottom bottom",
-          end:"bottom bottom",
-          toggleActions:"restart none reverse reverse",
-          scrub:2,
-
-        }});
-            let sections=gsap.utils.toArray("section");
-            let test=gsap.utils.toArray("article");
-       
+        const bigTl=gsap.timeline();
             bigTl
+            .from(".presentation", {
+              scrollTrigger:{
+                trigger:'.presentation',
+                start:"top top",
+                end:"80%",
+                scrub:true,
+                pin:true,
+                anticipatePin:1, 
+              }
+            })
             .to(sections,{
               ease:"none",
               scrollTrigger:{
-                trigger:"main",
+                trigger:"presentation",
                 scrub:1,
                 snap:1,
-                end:()=>"+="+document.querySelector("main").offsetHeight
+                end:()=>"+="+document.querySelector(".description").offsetHeight
               }
             })
             .from(".description__title",{rotate:'-50',x:"-100vw", scrollTrigger:{
@@ -174,129 +123,133 @@ function App() {
             .from(".description__div",{x:"100vw", scrollTrigger:{
               trigger:".description__title",
               start:"top 50%",
-              //endTrigger:".description",
               end:"top 50%",
               toggleActions:"restart none reverse reverse",
               scrub:2,
               duration:1
-
             }})
 
-            .to(test,{
-              xPercent:-100*(test.length-1),
+            .to(articles,{
+              xPercent:-100,
               ease:"none",
-
               scrollTrigger:{
                 trigger:".vertical-container",
                 pin:true,
                 scrub:1,
-               snap:1,
-                end:()=>"+="+document.querySelector(".vertical-container").offsetWidth
+                snap:1/12,
+                end:()=>"+="+document.querySelector(".vertical-container").offsetWidth,
               }
             })
-           
+          
+           gsap.from(".description__picture",{yPercent:100,
+          scrollTrigger:{
+            trigger:".description__title",
+            scrub:1,
+            end:"top 40%",
+           }})
+          gsap.to(".description__picture",{x:"0vw",
+            scrollTrigger:{
+              trigger:".projet",
+              start:"1% top" ,
+              end:"1% top",
+              scrub:2,
+            }})
+
+
+          const pointTl=gsap.timeline({scrollTrigger:{
+            trigger:".description",
+          }});
+          pointTl.fromTo(".first-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,delay:0.1,duration:0.6,
+          })
+          .fromTo(".second-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
+          })
+          .fromTo(".third-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
+          })
+ 
+          const textTl=gsap.timeline({scrollTrigger:{
+            trigger:".description__div",
+            start:"bottom bottom",
+            end:"bottom 90%",
+            toggleActions:"restart none reverse reverse",
+            //scrub:true,
+          }});
           textTl .from(".description__div__second",{opacity:0,ease:"none",
-      
           })
-            .from(".description__div__third",{opacity:0, ease:"none",
-    
+            .from(".description__div__third",{opacity:0, ease:"none",   
           })
-            .from(".description__div__fourth",{opacity:0,  ease:"none"
+            .from(".description__div__fourth",{opacity:0,  ease:"none"     
+          })
+            .from(".description__div__fifth",{opacity:0,  ease:"none"    
+          })
+            .from(".description__div__sixth",{opacity:0, ease:"none"       
+          })
+
+        gsap.to(".projet__title",{x:"400vw",ease:"none",
+        scrollTrigger:{
+          trigger:".projet__title",
+          start:"top+=40% top",
+          toggleActions:"restart none reverse reverse",
+          endTrigger:".projet",
+          end:"bottom+=1700 bottom",
+          scrub:1,
        
-          })
-            .from(".description__div__fifth",{opacity:0,  ease:"none"
-      
-          })
-            .from(".description__div__sixth",{opacity:0, ease:"none"
-         
-          })
-          
-           
-
-    
-
-            // .to(".description__div__second", {duration: 2,
-            //    text:"Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.", ease: "none"})
-            // .to(".description__div__third", {duration: 3, 
-            //   text: "J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms. Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio.", ease: "none"})
-            // .to(".description__div__fourth", {duration: 1,
-            //    text: "Je continue à monter en compétences avec des projets persos.", ease: "none"})
-            // .to(".description__div__fifth", {duration: 1, 
-            //   text: "En ce moment, j'apprends React Native, Next.js, et typescript.", ease: "none"})
-
-          
-
-
-            
-       
-      
+        }})
       }
-
     },[cursor])
 
+   
   return (
 
     !cursor? <div className="front-container"><span className="front-container__hello">Hello<span className="front-container__hello__effect"><span className="front-container__hello__effect__opacity">|</span></span></span><br/></div>:(
     
     <main>
        <div  className="homepage" >
-       <div className="mirror"style={mirrorStyle}> 
-          <div className="mirror__presentation cont" >
-            <div className="mirror__presentation__container" >
-              <span className="mirror__presentation__container__underline ">
-                Christopher<br/>
-                 Koch
-              </span>
-              <span className="mirror__presentation__container__underline invert" onMouseOut={()=>{setOpacityHover(0);setMirrorStyle({width:"50px",height:'50px'})}} onMouseMove={()=>{setOpacityHover(1);setMirrorStyle({width:"500px",height:'500px'})}}>
-                Christopher<br/>
-                 Koch
-              </span>
-              <div  style={{opacity:opacityHover}} className="presentation__container__profil-picture"></div>                     
-              <span className="mirror__presentation__container__text developpeur2" > développeur <br/></span><span className="mirror__presentation__container__text__span front-end2 ">front-end.</span>
-            </div>
-          </div>
+        <div className="mirror" style={mirrorStyle}  >
+          <div  style={{opacity:opacityHover}} className="presentation__container__profil-picture"></div>                     
         </div>
 
-        <section ref={ref} className="presentation">
+        <section  className="presentation snapDiv">
           <div className="presentation__container opacityQuick">
-            <span className={"presentation__container__underline name "}  onMouseOut={()=>{setOpacityHover(0);setMirrorStyle({width:"50px",height:'50px'})}} onMouseMove={()=>{setOpacityHover(1);setMirrorStyle({width:"500px",height:'500px'})}}>
+            <span className={"presentation__container__underline name "}  onMouseOut={()=>{setOpacityHover(0);setMirrorStyle({width:"50px",height:'50px'})}} onMouseEnter={()=>{setOpacityHover(1);setMirrorStyle({width:"500px",height:'500px'})}}>
               Christopher<br/>
               Koch</span>
             <span  className={"presentation__container__text  developpeur"}> développeur <br/></span>
-            <span className="presentation__container__text__span front-end ">front-end.</span> 
+            <span className="presentation__container__text__span front-end ">front-end<span>.</span></span> 
+            <div className="presentation__container__marquee"><div className="presentation__container__marquee__inner"><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span></div></div>
           </div>
         </section>
       </div>
 
-      <section className='vertical-container'>
+      <section className='vertical-container snapDiv'>
         <article className="description " >
-            <h1 className="description__title">Who am I ???</h1>
-            <div className="description__div"> 
-              <p>J'ai 33 ans, j'habite Marseille ! </p>
-              <p className='description__div__second'>Anciennement directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
-              <p className='description__div__third'>J'ai récemment fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
-              <p className='description__div__fourth' >Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio. </p>
+            <h1 className="description__title font-bebas">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
+            <div className="description__picture" ></div>
+            <div className="description__div "> 
+            <div className="description__div__line"></div>
+              <p>J'ai 33 ans et j'habite Marseille ! </p>
+              <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
+              <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
+              {/* <p className='description__div__fourth' >Cette formation m'a permis de pratiquer à travers différents projets que tu peux consulter dans mon portfolio. </p>
               <p className='description__div__fifth'>Je continue à monter en compétences avec des projets persos.</p>
-              <p className='description__div__sixth'>En ce moment, j'apprends React Native, Next.js, et typescript. </p>
+              <p className='description__div__sixth'>En ce moment, j'apprends React Native, Next.js, et typescript. </p> */}
             </div>
         </article>
         
         <article className="projet" >
             <h1 className="projet__title">Mes projets</h1>
             <div className="projet__container">
-            {ProjectsGH.map(projet=><Card setData={setData} key={projet.id} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>)}
+            {ProjectsGH.map(projet=><Card  key={projet.id} picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
             </div>
         </article>
       </section>
- 
-       {/* <section className="parcours">
-          <div className="parcours__blocHorizontal">
-              <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__one"><h1>mon parcours</h1></div>
-              <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__two">tes</div>
-              <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__three">test</div>
-              <div className="parcours__blocHorizontal__slide parcours__blocHorizontal__slide__four">test</div>
-          </div>
-      </section>  */}
+
+      <div className="parcours">
+        tt
+      </div>
+      <div className="contact">
+        tt
+      </div>
+      
     </main>
   ))
 }
