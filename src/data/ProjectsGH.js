@@ -40,7 +40,7 @@ const ProjectsGH= ([
         ],
     },
     {   id:4,
-        title:"FisheEye",
+        title:"FishEye",
         description:"Site accessible pour une plateforme de photographes. Respect maquette+ page dynamique+fetch fichier JSON+barre filtre+ navigation clavier et lecteur d'écran",
         tools:["HTML","CSS","SASS","JavaScript","ARIA"],
         picture:"/img/fishEye.png",
@@ -132,7 +132,7 @@ const ProjectsGH= ([
     {   id:12,
         title:"JEU 5000",
         description:"Jeu de dés contre une IA, fait avec React et Three.js.",
-        tools:["HTML","CSS","JavaScript","REACT","Three.js","Three/cannon","Three/fiber"],
+        tools:["HTML","CSS","JavaScript","REACT","Three.js"],
         picture:"/img/jeu5000.png",
         buttons:[
             {url:"https://kochky.github.io/jeu-5000/",
