@@ -384,7 +384,7 @@ ul, li {
 }
 .projet__title {
   margin-left: 20px;
-  font-size: 30vh;
+  font-size: 28vh;
 }
 .projet__container {
   display: flex;
@@ -483,15 +483,24 @@ ul, li {
   color: #E1A624;
   padding: 0;
 }
-.card-container__picture {
+.card-container__div {
   margin: 0 auto;
   margin-top: 3%;
   margin-bottom: 5%;
   height: 40%;
   max-width: 90%;
+  overflow: hidden;
+}
+.card-container__div__picture {
+  width: 100%;
+  height: 100%;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  transition: all 300ms ease-in;
+}
+.card-container__div__picture:hover {
+  transform: scale(1.1);
 }
 .card-container__buttons {
   display: flex;
@@ -500,7 +509,7 @@ ul, li {
   height: 5%;
   padding: 0 10%;
   justify-content: center;
-  column-gap: 10%;
+  column-gap: 20%;
 }
 @media screen and (max-height: 768), screen and (max-width: 768) {
   .card-container__buttons {
@@ -512,46 +521,95 @@ ul, li {
     font-size: 0.75rem;
   }
 }
+.card-container__buttons div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .parcours {
+  background-color: beige !important;
   width: 100vw;
   height: 100vh;
   min-height: 320px;
   min-width: 320px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  border-top: 2px solid;
 }
-.parcours__text {
-  font-size: 2rem;
-  width: auto;
-}
-@media screen and (max-width: 768px), screen and (max-height: 768px) {
-  .parcours__text {
-    font-size: 1rem;
-  }
-}
-@media screen and (max-width: 400px), screen and (max-height: 400px) {
-  .parcours__text {
-    font-size: 0.75rem;
-  }
-}
-@media screen and (max-width: 320px), screen and (max-height: 320px) {
-  .parcours__text {
-    font-size: 0.5rem;
-  }
-}
-.parcours__text p {
-  margin-bottom: 20px;
-}
-
-.contact {
-  background-color: red;
+.parcours__picture {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   min-height: 320px;
   min-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150vw;
+  right: 0;
+}
+.parcours__picture__inner {
+  background: url("../ressources/images/codesline.jpg") no-repeat;
+  width: 150vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: bottom;
+  transition: all 300ms ease-in;
+}
+.parcours__picture__inner:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+.parcours__container {
+  padding-top: 50px;
+  font-size: 3rem;
+  width: 100vw;
+  height: 100vh;
+  min-height: 320px;
+  min-width: 320px;
+}
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .parcours__container {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 400px), screen and (max-height: 400px) {
+  .parcours__container {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 320px), screen and (max-height: 320px) {
+  .parcours__container {
+    font-size: 0.75rem;
+  }
+}
+.parcours__container p {
+  padding: 0 10%;
+  margin-bottom: 20px;
+}
+.parcours__container__picture {
+  width: 300px;
+  height: 300px;
+  background: url("../ressources/images/book.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 30%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.contact {
+  width: 100vw;
+  height: 100vh;
+  min-height: 320px;
+  min-width: 320px;
+  background-color: blue;
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {

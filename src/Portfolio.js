@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react';
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import ProjectsGH from './data/ProjectsGH';
 import Card from './components/Card';
@@ -13,12 +13,9 @@ function Portfolio() {
     const [mirrorStyle,setMirrorStyle]=useState({width:"50px",height:"50px"})
     const [styleBlack,setStyleBlack]=useState({borderColor:"black",color:"black",backgroundColor:"white"})
 
-    
-    useEffect(()=>{
-   
-          gsap.registerPlugin(ScrollTrigger)
-          gsap.registerPlugin(TextPlugin);
-        
+    useLayoutEffect(()=>{
+          gsap.registerPlugin(ScrollTrigger,TextPlugin)
+
           //animation faisant fuir "developpeur" et "front end" en scrollant
           gsap.to(".developpeur",{
             scrollTrigger:{
@@ -45,18 +42,18 @@ function Portfolio() {
           //animation en arrivant sur la page présentation
           gsap.fromTo(".name",
           {y:'-20vh'},
-          {y:0},)
+          {y:0},);
 
     
           gsap.fromTo(".developpeur",
             {x:'20vw'},
             {x:0},
-          )
+          );
           
           gsap.fromTo(".front-end",
           {x:'-20vw'},
           {x:0},
-        )
+        );
         
         //permet le pin le snap des sections
         let sections=gsap.utils.toArray("snapDiv");
@@ -77,9 +74,9 @@ function Portfolio() {
             .to(sections,{
               ease:"none",
               scrollTrigger:{
-                trigger:"presentation",
+                trigger:".presentation",
                 scrub:1,
-                snap:1/3,
+                snap:1,
                 //end:".description"
               }
             })
@@ -109,9 +106,8 @@ function Portfolio() {
                 pin:true,
                 scrub:1,
                 snap:1/12,
-                //end:".vertical-container"
               }
-            })
+            });
           
             //faire apparaitre l'image QRcode en quittant la page
            gsap.from(".description__picture",{yPercent:100,
@@ -119,14 +115,14 @@ function Portfolio() {
             trigger:".description__title",
             scrub:1,
             end:"top 40%",
-           }})
+           }});
           gsap.to(".description__picture",{x:"0vw",
             scrollTrigger:{
               trigger:".projet",
               start:"1% top" ,
               end:"1% top",
               scrub:2,
-            }})
+            }});
 
           //anime les ... de about me
           const pointTl=gsap.timeline({scrollTrigger:{
@@ -137,7 +133,7 @@ function Portfolio() {
           .fromTo(".second-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
           })
           .fromTo(".third-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
-          })
+          });
  
           //fait apparaitre le texte au fur et à mesure
           const textTl=gsap.timeline({scrollTrigger:{
@@ -146,7 +142,7 @@ function Portfolio() {
             end:"bottom 95%",
             toggleActions:"restart none reverse reverse",
           }});
-          textTl .from(".description__div__second",{opacity:0,ease:"none",
+          textTl.from(".description__div__second",{opacity:0,ease:"none",
           })
             .from(".description__div__third",{opacity:0, ease:"none",   
           });
@@ -157,25 +153,89 @@ function Portfolio() {
           gsap.fromTo(".sleft",{xPercent:100},{xPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:8})
           gsap.fromTo(".sup",{yPercent:100},{yPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:12});
 
-   
-
         //inverse les couleurs quand .parcours est visible
           ScrollTrigger.create({
             trigger:".parcours",
-            start:"top 95%",
+            start:"top 99%",
             onEnter:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
             onLeave:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"}),
             onEnterBack:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
             onLeaveBack:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"})
 
+          });
+
+
+          //remplace le texte sur "ce que j'apprends en ce moment"
+        const remplaceTl= gsap.timeline({repeat:-1,duration:0,delay:0,ease:"none",type:"diff",
+        })
+        remplaceTl.to(".remplace-text",{
+          delay:0,
+          duration:2,
+          text:{
+            value:"TypeScript",
+            speed:0.5,
+          }})
+          .to(".remplace-text",{
+            delay:0,
+            duration:2,
+            text:{
+              value:"Next.js",
+              speed:0.5,
+            }
           })
-      
+          .to(".remplace-text",{
+            delay:0,
+            duration:2,
+            text:{
+              value:"React Native",
+              speed:0.5,
+            }
+          })
+
+          //effet transtion entre projet et parcours
+          let parcoursPicture=gsap.timeline()
+          parcoursPicture.from(".parcours__picture",{yPercent:100,ease:"none"})
+            ScrollTrigger.create({
+              animation:parcoursPicture,
+              trigger:".parcours",
+              start:"top 99%",
+              end:"top 99%",
+              scrub:1,
+            })
+
+          //Les 3 images se séparent
+          gsap.to(".picture-first",{xPercent:-150,
+            scrollTrigger:{
+              trigger:".parcours__container",
+              start:"top top",
+              end:"+=1000",
+              scrub:1,
+            }
+          })
+          gsap.to(".picture-second",{xPercent:150,
+            scrollTrigger:{
+              trigger:".parcours__container",
+              start:"top top",
+              end:"+=1000",
+              scrub:1,
+            }
+          })  
+
+          //Parcours reste figé
+          gsap.from(".parcours",{ease:"none",
+            scrollTrigger:{
+              trigger:".parcours",
+              pin:true,
+              anticipatePin:1,
+              scrub:1,
+              markers:true,
+              end:"+=1000",
+            }})
+          
     },[])
 
    
   return (
-
-    
     <main>
        <div  className="homepage" >
         <Mirror opacityHover={opacityHover} mirrorStyle={mirrorStyle} />
@@ -200,9 +260,9 @@ function Portfolio() {
         <div className="description__div__line left"><div className="description__div__line__ball sup"></div></div>
         <div className="description__div__line right"><div className="description__div__line__ball sdown"></div></div>
 
-            <h1 className="description__title font-bebas">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
+            <h1 className="description__title ">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
             <div className="description__picture" ></div>
-            <div className="description__div "> 
+            <div className="description__div font-bebas"> 
               <p>J'ai 33 ans et j'habite Marseille ! </p>
               <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
               <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
@@ -214,21 +274,28 @@ function Portfolio() {
             <div className="projet__container">
               {ProjectsGH.map(projet=><Card  key={projet.id} styleBlack={styleBlack} picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
             </div>
-  
+            <div className="parcours__picture">
+          <div className="parcours__picture__inner"> </div> 
+        </div>
         </article>
       </section>
 
       <section className="parcours" style={styleBlack}>
-        <div className="parcours__text">
-          <p className='parcours__text__first' >Cette formation m'a permis de pratiquer à travers différents projets. </p>
-          <p className='parcours__text__second'>Je continue à monter en compétences avec des projets persos.</p>
-          <p className='parcours__text__third'>En ce moment, j'apprends React Native, Next.js, et typescript. </p>
+     
+
+        <div className="parcours__container font-bebas" style={styleBlack}>
+          <p className='parcours__container__first' >Cette formation m'a permis de pratiquer à travers différents projets. </p>
+          <p className='parcours__container__second'>Je continue à monter en compétences avec des projets persos.</p>
+          <p className='parcours__container__third'>En ce moment, j'apprends <span className="remplace-text">React Native</span> </p>
+           <div className="parcours__container__picture picture-first"></div>
+           <div className="parcours__container__picture picture-second"></div>
+           <div className="parcours__container__picture"></div> 
         </div>
       </section>
+      
       <section className="contact">
         tt
       </section>
-      
     </main>
   )
 }
