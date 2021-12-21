@@ -339,6 +339,7 @@ ul,li {
     min-width:400vw;
     border-radius: 50px 0 0 50px;
     overflow: hidden;
+    position:relative;
     @media screen and (max-width:768px) {
         width:1200vw;
         min-width:1200vw;
@@ -351,6 +352,26 @@ ul,li {
         @include flex;
         left:0;
         height:60vh;
+    }
+    &__picture{
+        position:absolute;
+        z-index:1;
+        overflow: hidden;
+        @include container;
+        @include flex;
+        width:300vw;
+        right:0;
+        &__inner{
+            background:url("../ressources/images/codesline.jpg") no-repeat;
+            width:300vw;
+            height:100vh;
+            background-size: cover;
+            background-position: bottom;
+            transition:all 300ms ease-in;
+            &:hover {
+                transform:scale(1.1) rotate(3deg)
+            }
+        }
     }
 }
 
@@ -460,37 +481,16 @@ ul,li {
 }
 
 .parcours {
-    background-color:beige !important;  
     @include container;
     position:relative;
     overflow: hidden;
     border-top:2px solid;
-
-    &__picture{
-        position:absolute;
-        z-index:1;
-        overflow: hidden;
-        @include container;
-        @include flex;
-        width:150vw;
-        right:0;
-        &__inner{
-            background:url("../ressources/images/codesline.jpg") no-repeat;
-            width:150vw;
-            height:100vh;
-            background-size: cover;
-            background-position: bottom;
-            transition:all 300ms ease-in;
-            &:hover {
-                transform:scale(1.1) rotate(3deg)
-            }
-        }
-    }
     &__container{
-
         padding-top:50px;
         font-size:3rem;
         @include container;
+        border-bottom:2px solid;
+        border-radius: 0 0 15px 15px;
         @media screen and (max-width:768px),screen and (max-height:768px) {
             font-size:2rem;    
         }
@@ -505,7 +505,6 @@ ul,li {
             margin-bottom:20px;
         }
         &__picture {
-        
             width:300px;
             height:300px;
             background:url("../ressources/images/book.jpg") no-repeat;
@@ -519,14 +518,55 @@ ul,li {
             left:0;
             right:0;
         }
-    }      
+        &__hidden-text{
+            color:black !important;
+            position:absolute;
+            top:35vh;
+            left:0;
+            right:0;
+            margin:auto;
+            z-index:10;
+            width:100%;
+            height:fit-content;
+            text-align: center;
+            font-size: 6rem;
+            font-family: "Monoton"
+        }
+    } 
+    &__contact {
+        @include container;
+        color:white !important;
+        border-radius:15px 15px 0 0;
+        //border:2px solid white;
+        box-sizing: border-box;
+        overflow: hidden;
+        bottom:0;
+        z-index:-1;
+        position:absolute;
+        height:30vh;
+        background: url("../ressources/images/heart.jpg");
+        &__container{
+           background-color: rgba(0,0,0,0.95);
+           @include container;
+           padding-top:10%;
+          &__icon-div{
+              @include flex;
+              margin-top:10%;
+              column-gap: 10%;
+              & span i {
+                  padding-right:15px;
+              }
+          }
+        }
+    }
 }
 
-.contact {
-    @include container;
-    background-color: blue;
-}
 
+
+.empty{
+   @include container;
+   background-color: blue;
+}
 
 @media only screen and (hover: none) and (pointer: coarse){
    .mirror{

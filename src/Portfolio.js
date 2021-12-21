@@ -5,6 +5,10 @@ import { TextPlugin } from "gsap/TextPlugin";
 import ProjectsGH from './data/ProjectsGH';
 import Card from './components/Card';
 import Mirror from './components/Mirror';
+import { doubleArrow } from './ressources/images/angle-double-down-solid.svg'
+import { email } from './ressources/images/envelope-regular (1).svg'
+import { github } from './ressources/images/github-square-brands.svg'
+import { linkedin } from "./ressources/images/linkedin-brands.svg"
 
 
 function Portfolio() {
@@ -190,18 +194,18 @@ function Portfolio() {
               value:"React Native",
               speed:0.5,
             }
-          })
+          });
 
           //effet transtion entre projet et parcours
           let parcoursPicture=gsap.timeline()
-          parcoursPicture.from(".parcours__picture",{yPercent:100,ease:"none"})
+          parcoursPicture.from(".projet__picture",{yPercent:100,ease:"none"})
             ScrollTrigger.create({
               animation:parcoursPicture,
               trigger:".parcours",
               start:"top 99%",
               end:"top 99%",
               scrub:1,
-            })
+            });
 
           //Les 3 images se séparent
           gsap.to(".picture-first",{xPercent:-150,
@@ -210,8 +214,9 @@ function Portfolio() {
               start:"top top",
               end:"+=1000",
               scrub:1,
+              
             }
-          })
+          });
           gsap.to(".picture-second",{xPercent:150,
             scrollTrigger:{
               trigger:".parcours__container",
@@ -219,8 +224,23 @@ function Portfolio() {
               end:"+=1000",
               scrub:1,
             }
-          })  
+          });  
+          //images accompagnent le scroll
+          gsap.to(".parcours__container__picture",{yPercent:300,ease:"none",
+          scrollTrigger:{
+            trigger:".parcours",
+            start:"bottom 50%",
+            scrub:2,
+          }})
+          gsap.to(".parcours__container",{y:"-30vh",
+          scrollTrigger:{
+            trigger:".parcours",
+            start:"bottom top",
+            end:"bottom top",
+            scrub:1,
+            markers:true,
 
+          }})
           //Parcours reste figé
           gsap.from(".parcours",{ease:"none",
             scrollTrigger:{
@@ -228,9 +248,19 @@ function Portfolio() {
               pin:true,
               anticipatePin:1,
               scrub:1,
-              markers:true,
-              end:"+=1000",
+              end:"+=100000",
+              pinSpacing:false,
             }})
+
+          //snap le .parcours
+          ScrollTrigger.create({
+            trigger:".parcours",
+            start:"top bottom",
+            end:"top top",
+            snap:1,
+            scrub:1,
+          })
+       
           
     },[])
 
@@ -274,15 +304,14 @@ function Portfolio() {
             <div className="projet__container">
               {ProjectsGH.map(projet=><Card  key={projet.id} styleBlack={styleBlack} picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
             </div>
-            <div className="parcours__picture">
-          <div className="parcours__picture__inner"> </div> 
+            <div className="projet__picture">
+          <div className="projet__picture__inner"> </div> 
         </div>
         </article>
       </section>
 
       <section className="parcours" style={styleBlack}>
      
-
         <div className="parcours__container font-bebas" style={styleBlack}>
           <p className='parcours__container__first' >Cette formation m'a permis de pratiquer à travers différents projets. </p>
           <p className='parcours__container__second'>Je continue à monter en compétences avec des projets persos.</p>
@@ -290,11 +319,23 @@ function Portfolio() {
            <div className="parcours__container__picture picture-first"></div>
            <div className="parcours__container__picture picture-second"></div>
            <div className="parcours__container__picture"></div> 
+           <div className="parcours__container__hidden-text ">That's all folks</div>
         </div>
+
+        <div className="parcours__contact">
+            <div className="parcours__contact__container">
+              <h2 className='parcours__contact__container__title'>More...</h2>
+              <div className='parcours__contact__container__icon-div'>
+                <span><i class="far fa-envelope fa-4x"></i>e-mail</span>
+                <span><i class="fab fa-linkedin fa-4x"></i>Linkedin</span>
+                <span><i class="fab fa-github-square fa-4x"></i>Github</span>
+                <span><i class="far fa-file fa-4x"></i>CV</span>
+              </div>
+            </div>  
+          </div> 
       </section>
-      
-      <section className="contact">
-        tt
+    
+      <section className="empty">
       </section>
     </main>
   )

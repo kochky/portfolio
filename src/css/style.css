@@ -375,6 +375,7 @@ ul, li {
   min-width: 400vw;
   border-radius: 50px 0 0 50px;
   overflow: hidden;
+  position: relative;
 }
 @media screen and (max-width: 768px) {
   .projet {
@@ -392,6 +393,31 @@ ul, li {
   justify-content: center;
   left: 0;
   height: 60vh;
+}
+.projet__picture {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  min-height: 320px;
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300vw;
+  right: 0;
+}
+.projet__picture__inner {
+  background: url("../ressources/images/codesline.jpg") no-repeat;
+  width: 300vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: bottom;
+  transition: all 300ms ease-in;
+}
+.projet__picture__inner:hover {
+  transform: scale(1.1) rotate(3deg);
 }
 
 .card-container {
@@ -528,7 +554,6 @@ ul, li {
 }
 
 .parcours {
-  background-color: beige !important;
   width: 100vw;
   height: 100vh;
   min-height: 320px;
@@ -537,31 +562,6 @@ ul, li {
   overflow: hidden;
   border-top: 2px solid;
 }
-.parcours__picture {
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  min-height: 320px;
-  min-width: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 150vw;
-  right: 0;
-}
-.parcours__picture__inner {
-  background: url("../ressources/images/codesline.jpg") no-repeat;
-  width: 150vw;
-  height: 100vh;
-  background-size: cover;
-  background-position: bottom;
-  transition: all 300ms ease-in;
-}
-.parcours__picture__inner:hover {
-  transform: scale(1.1) rotate(3deg);
-}
 .parcours__container {
   padding-top: 50px;
   font-size: 3rem;
@@ -569,6 +569,8 @@ ul, li {
   height: 100vh;
   min-height: 320px;
   min-width: 320px;
+  border-bottom: 2px solid;
+  border-radius: 0 0 15px 15px;
 }
 @media screen and (max-width: 768px), screen and (max-height: 768px) {
   .parcours__container {
@@ -603,8 +605,55 @@ ul, li {
   left: 0;
   right: 0;
 }
+.parcours__container__hidden-text {
+  color: black !important;
+  position: absolute;
+  top: 35vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  font-size: 6rem;
+  font-family: "Monoton";
+}
+.parcours__contact {
+  width: 100vw;
+  height: 100vh;
+  min-height: 320px;
+  min-width: 320px;
+  color: white !important;
+  border-radius: 15px 15px 0 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  bottom: 0;
+  z-index: -1;
+  position: absolute;
+  height: 30vh;
+  background: url("../ressources/images/heart.jpg");
+}
+.parcours__contact__container {
+  background-color: rgba(0, 0, 0, 0.95);
+  width: 100vw;
+  height: 100vh;
+  min-height: 320px;
+  min-width: 320px;
+  padding-top: 10%;
+}
+.parcours__contact__container__icon-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  column-gap: 10%;
+}
+.parcours__contact__container__icon-div span i {
+  padding-right: 15px;
+}
 
-.contact {
+.empty {
   width: 100vw;
   height: 100vh;
   min-height: 320px;
