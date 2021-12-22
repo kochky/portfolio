@@ -34,8 +34,8 @@ function Mirror({mirrorStyle,opacityHover}){
       }, [])
   
     return(   
-        <div className="mirror" style={mirrorStyle}  >
-            <div  style={{opacity:opacityHover}} className="presentation__container__profil-picture"></div>                     
+        <div className="mirror" style={mirrorStyle}>
+            <div style={{opacity:opacityHover}} className="presentation__container__profil-picture"></div>                     
         </div>
     )
 }

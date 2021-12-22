@@ -17,6 +17,11 @@ body {
   overflow-x: hidden;
 }
 
+a, a:active, a:visited {
+  text-decoration: none;
+  color: white;
+}
+
 .font-bungee {
   font-family: "Bungee Shade", cursive;
 }
@@ -180,6 +185,37 @@ ul, li {
   font-family: "Major Mono Display", monospace;
 }
 
+.marquee__point {
+  margin-left: 10px;
+  overflow: hidden;
+  --move-final: calc(-33% );
+}
+.marquee__point__inner {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 40px;
+  transform: translate3d(var(--move-initial), 0, 0);
+  animation: marquee__point 1s linear infinite;
+}
+.marquee__point__inner span {
+  color: white;
+  width: 10px;
+  margin-right: 3px;
+}
+
+@keyframes marquee__point {
+  0% {
+    transform: translate3d(var(--move-initial), 0, 0);
+  }
+  50% {
+    transform: translate3d(var(--move-final), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--move-final), 0, 0);
+  }
+}
 @keyframes marquee {
   0% {
     transform: translate3d(var(--move-initial), 0, 0);
@@ -410,16 +446,12 @@ ul, li {
 }
 .projet__picture__inner {
   background: url("../ressources/images/codesline.jpg") no-repeat;
-  width: 300vw;
-  height: 100vh;
+  width: 600vw;
+  height: 200vh;
   background-size: cover;
   background-position: bottom;
   transition: all 300ms ease-in;
 }
-.projet__picture__inner:hover {
-  transform: scale(1.1) rotate(3deg);
-}
-
 .card-container {
   font-size: 1rem;
   min-width: 33.33vw;
@@ -469,7 +501,7 @@ ul, li {
     font-size: 2rem;
   }
 }
-@media screen and (max-height: 374px), screen and (max-width: 374px) {
+@media screen and (max-height: 375px), screen and (max-width: 375px) {
   .card-container__title {
     font-size: 1.5rem;
   }
@@ -552,6 +584,10 @@ ul, li {
   align-items: center;
   justify-content: center;
 }
+.card-container__buttons div:hover {
+  transform: translateX(10%);
+  transition: all 100ms ease-in;
+}
 
 .parcours {
   width: 100vw;
@@ -563,6 +599,7 @@ ul, li {
   border-top: 2px solid;
 }
 .parcours__container {
+  box-sizing: border-box;
   padding-top: 50px;
   font-size: 3rem;
   width: 100vw;
@@ -574,7 +611,7 @@ ul, li {
 }
 @media screen and (max-width: 768px), screen and (max-height: 768px) {
   .parcours__container {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 }
 @media screen and (max-width: 400px), screen and (max-height: 400px) {
@@ -589,11 +626,10 @@ ul, li {
 }
 .parcours__container p {
   padding: 0 10%;
-  margin-bottom: 20px;
 }
 .parcours__container__picture {
-  width: 300px;
-  height: 300px;
+  width: 20%;
+  height: 20%;
   background: url("../ressources/images/book.jpg") no-repeat;
   background-size: cover;
   background-position: center;
@@ -619,50 +655,141 @@ ul, li {
   font-size: 6rem;
   font-family: "Monoton";
 }
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .parcours__container__hidden-text {
+    font-size: 4rem;
+  }
+}
+@media screen and (max-width: 400px), screen and (max-height: 400px) {
+  .parcours__container__hidden-text {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 320px), screen and (max-height: 320px) {
+  .parcours__container__hidden-text {
+    font-size: 2rem;
+  }
+}
 .parcours__contact {
   width: 100vw;
   height: 100vh;
   min-height: 320px;
   min-width: 320px;
   color: white !important;
-  border-radius: 15px 15px 0 0;
-  box-sizing: border-box;
   overflow: hidden;
   bottom: 0;
   z-index: -1;
   position: absolute;
-  height: 30vh;
+  height: 35vh;
+  min-height: 35vh;
   background: url("../ressources/images/heart.jpg");
+  background-position: center;
+  background-size: cover;
 }
 .parcours__contact__container {
-  background-color: rgba(0, 0, 0, 0.95);
-  width: 100vw;
-  height: 100vh;
-  min-height: 320px;
-  min-width: 320px;
-  padding-top: 10%;
+  height: 35vh;
+  min-height: 35vh;
+  padding-top: 5vh;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.parcours__contact__container__title {
+  position: absolute;
+  display: flex;
+  padding-left: 10%;
+  padding-top: 5vh;
+  font-size: 4rem;
+}
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .parcours__contact__container__title {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 400px), screen and (max-height: 400px) {
+  .parcours__contact__container__title {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 320px), screen and (max-height: 320px) {
+  .parcours__contact__container__title {
+    font-size: 0.75rem;
+  }
 }
 .parcours__contact__container__icon-div {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10%;
   column-gap: 10%;
+  padding-top: 10vh;
+  height: 10vh;
 }
-.parcours__contact__container__icon-div span i {
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .parcours__contact__container__icon-div {
+    font-size: 0.5rem;
+  }
+}
+.parcours__contact__container__icon-div__link {
   padding-right: 15px;
 }
+.parcours__contact__container__icon-div a:hover {
+  transform: translateY(-10%) scale(1.1);
+  transition: all 100ms ease-in;
+}
 
+.scroll {
+  position: fixed;
+  color: white;
+  bottom: 15%;
+  right: 10%;
+  margin: auto auto;
+  width: min-content;
+  text-align: center;
+  font-size: 2rem;
+  animation: blink 2000ms infinite;
+}
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .scroll {
+    font-size: 1rem;
+  }
+}
+
+.go-back {
+  position: absolute;
+  bottom: 3vh;
+  color: white;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin: auto;
+}
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
+  .go-back {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 425px), screen and (max-height: 425px) {
+  .go-back {
+    font-size: 0.5rem;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .empty {
   width: 100vw;
   height: 100vh;
   min-height: 320px;
   min-width: 320px;
-  background-color: blue;
 }
 
 @media only screen and (hover: none) and (pointer: coarse) {
-  .mirror {
+  .mirror, .scroll {
     display: none;
   }
 }

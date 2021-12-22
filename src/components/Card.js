@@ -10,7 +10,7 @@ function Card({styleBlack,picture,title,description,tools,buttons}){
                 <div className="card-container__div__picture" style={{backgroundImage:"url('"+picture+"')"}}> </div>
             </div> 
             <div className="card-container__buttons">
-                {buttons.map((button,index)=><div key={index}><i className="fas fa-long-arrow-alt-right fa-lg"></i><a style={styleBlack} className="font-bebas"  href={button.url}>{button.type}</a></div>)}
+                {buttons.map((button,index)=><div key={index}><i className="fas fa-long-arrow-alt-right fa-lg"></i><a style={styleBlack} className="font-bebas" rel="noopener noreferrer" target="_blank" href={button.url}>{button.type}</a></div>)}
             </div>
         </div>
     )

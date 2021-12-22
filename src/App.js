@@ -1,4 +1,4 @@
-import React, { useState,  } from 'react'
+import React, { useState, useEffect  } from 'react'
 import Portfolio from "./Portfolio"
 import  "./css/style.css"
 
@@ -7,12 +7,10 @@ const [loading,setLoading]=useState(false)
 
     // useEffect(() => {
     //     setTimeout(()=>{setLoading(false)},4000);
-
     //     }, [])
 
     // useEffect(() => {
     //     window.addEventListener("resize",()=>setLoading(true,setTimeout(()=>{setLoading(false)},4000)))
-       
     //   },[])
 
     return (
