@@ -2,6 +2,7 @@
   font-family: "Aeonik";
   src: url("../ressources/police/Aeonik-Regular.otf") format("opentype");
   font-style: normal;
+  font-display: swap;
 }
 body {
   background-color: black;
@@ -271,7 +272,7 @@ ul, li {
   position: absolute;
   min-width: 500px;
   min-height: 500px;
-  background: url("../ressources/images/profil.jpg") no-repeat;
+  background: url("../ressources/images/profil.jpeg") no-repeat;
   background-size: cover;
   border-radius: 5%;
   top: 0;
@@ -355,10 +356,10 @@ ul, li {
   position: absolute;
   left: 0;
   top: 0;
-  background: url("../ressources/images/qrcode.jpg") no-repeat;
+  background: url("../ressources/images/qrcode.webp") no-repeat;
   background-position: center;
   background-size: cover;
-  transform: translate(-100%, 0);
+  transform: translate(100%, 0);
   z-index: 1;
 }
 .description__div {
@@ -413,7 +414,7 @@ ul, li {
   overflow: hidden;
   position: relative;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
   .projet {
     width: 1200vw;
     min-width: 1200vw;
@@ -430,38 +431,18 @@ ul, li {
   left: 0;
   height: 60vh;
 }
-.projet__picture {
-  position: absolute;
-  z-index: 1;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  min-height: 320px;
-  min-width: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 300vw;
-  right: 0;
-}
-.projet__picture__inner {
-  background: url("../ressources/images/codesline.jpg") no-repeat;
-  width: 600vw;
-  height: 200vh;
-  background-size: cover;
-  background-position: bottom;
-  transition: all 300ms ease-in;
-}
+
 .card-container {
   font-size: 1rem;
   min-width: 33.33vw;
   width: 33.33vw;
   height: 60vh;
-  min-height: 70vh;
+  min-height: 60vh;
+  margin-bottom: 10vh;
   overflow: hidden;
   position: relative;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px), screen and (max-height: 768px) {
   .card-container {
     width: 100vw;
     min-width: 100vw;
@@ -630,7 +611,7 @@ ul, li {
 .parcours__container__picture {
   width: 20%;
   height: 20%;
-  background: url("../ressources/images/book.jpg") no-repeat;
+  background: url("../ressources/images/book.webp") no-repeat;
   background-size: cover;
   background-position: center;
   border-radius: 30%;
@@ -682,7 +663,7 @@ ul, li {
   position: absolute;
   height: 35vh;
   min-height: 35vh;
-  background: url("../ressources/images/heart.jpg");
+  background: url("../ressources/images/heart.webp");
   background-position: center;
   background-size: cover;
 }
@@ -788,7 +769,7 @@ ul, li {
   min-width: 320px;
 }
 
-@media only screen and (hover: none) and (pointer: coarse) {
+@media only screen and (hover: none) and (pointer: coarse), only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .mirror, .scroll {
     display: none;
   }

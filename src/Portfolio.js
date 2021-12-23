@@ -19,7 +19,7 @@ function Portfolio() {
   useEffect(()=>{
     gsap.registerPlugin(ScrollTrigger,TextPlugin)
 
-    //animation faisant fuir "developpeur" et "front end" en scrollant
+    // //animation faisant fuir "developpeur" et "front end" en scrollant
     gsap.to(".developpeur",{
       scrollTrigger:{
         trigger:".developpeur",
@@ -59,17 +59,17 @@ function Portfolio() {
     );
       
     //permet le pin le snap des sections
-    let sections=gsap.utils.toArray("snapDiv");
+    let sections=gsap.utils.toArray(".snapDiv");
     let articles=gsap.utils.toArray("article");
-
+ 
     const bigTl=gsap.timeline();
     bigTl
-    .from(".presentation", {
+    .to(".presentation", {x:0,
       scrollTrigger:{
         trigger:'.presentation',
         start:"top top",
         end:"80%",
-        scrub:true,
+        scrub:1,
         pin:true,
         anticipatePin:1, 
       }
@@ -82,16 +82,16 @@ function Portfolio() {
         snap:1,
       }
     })
-    .from(".description__title",{rotate:'-50',x:"-100vw", scrollTrigger:{
+    .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
       trigger:".description",
       start:"top bottom",
       endTrigger:".description",
       end:"top top",
       toggleActions:"restart none reverse reverse",
       scrub:3,
-      }})
+    }})
     
-    .from(".description__div",{x:"100vw", scrollTrigger:{
+    .fromTo(".description__div",{x:"100vw"},{x:"0vw", scrollTrigger:{
       trigger:".description__title",
       start:"top 50%",
       end:"top 50%",
@@ -106,13 +106,14 @@ function Portfolio() {
       scrollTrigger:{
         trigger:".vertical-container",
         pin:true,
-        scrub:2,
+        scrub:1,
         snap:1/12,
       }
     })
- 
-    //faire apparaitre l'image QRcode en quittant la page
-    gsap.from(".description__picture",{yPercent:100,
+  
+    
+    // //faire apparaitre l'image QRcode en quittant la page
+    gsap.fromTo(".description__picture",{yPercent:100},{yPercent:0,
       scrollTrigger:{
         trigger:".description__title",
         scrub:1,
@@ -126,7 +127,7 @@ function Portfolio() {
         scrub:2,
       }});
 
-    //anime les ... de about me
+    // //anime les ... de about me
     const pointTl=gsap.timeline({scrollTrigger:{
       trigger:".description",
     }});
@@ -137,19 +138,19 @@ function Portfolio() {
     .fromTo(".third-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
     });
 
-    //fait apparaitre le texte au fur et à mesure
+    // //fait apparaitre le texte au fur et à mesure
     const textTl=gsap.timeline({scrollTrigger:{
       trigger:".description__div",
       start:"bottom bottom",
       end:"bottom 95%",
       toggleActions:"restart none reverse reverse",
     }});
-    textTl.from(".description__div__second",{opacity:0,ease:"none",
+    textTl.fromTo(".description__div__second",{opacity:0},{opacity:1,ease:"none",
     })
-      .from(".description__div__third",{opacity:0, ease:"none",   
+      .fromTo(".description__div__third",{opacity:0},{opacity:1,ease:"none",   
     });
     
-    //Anime le cadre autour de .description
+    // //Anime le cadre autour de .description
     gsap.fromTo(".sright",{xPercent:-100},{xPercent:100,ease:"power1.inOut",repeat:-1,duration:8})
     gsap.fromTo(".sdown",{yPercent:-100},{yPercent:100,ease:"power1.inOut",repeat:-1,duration:8,delay:4})
     gsap.fromTo(".sleft",{xPercent:100},{xPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:8})
@@ -194,17 +195,6 @@ function Portfolio() {
       }
     });
 
-    //effet transtion entre projet et parcours
-    let parcoursPicture=gsap.timeline()
-    parcoursPicture.from(".projet__picture",{yPercent:100,ease:"none"})
-      ScrollTrigger.create({
-        animation:parcoursPicture,
-        trigger:".parcours",
-        start:"top 99%",
-        end:"top 99%",
-        scrub:1,
-      });
-
     const parcoursTL=gsap.timeline({
       scrollTrigger:{
         trigger:".parcours__container",
@@ -223,15 +213,15 @@ function Portfolio() {
     .to(".parcours__container",{y:"-32vh"},"middle")
     .from(".scale",{scale:0,ease:"none"})
     .from(".parcours__container__hidden-text",{opacity:0})
-    .to("parcours__text",{opacity:0})
+    .to(".parcours__text",{opacity:0})
 
     //Parcours reste figé
-    gsap.from(".parcours",{ease:"none",
+    gsap.to(".parcours",{ease:"none",
       scrollTrigger:{
         trigger:".parcours",
         pin:true,
-        anticipatePin:1,
         scrub:1,
+        anticipatePin:1,
         pinSpacing:false,
 
       }})
@@ -282,17 +272,15 @@ function Portfolio() {
         <article className="projet" style={styleBlack} >
           <h1 className="projet__title">Mes projets</h1>
           <div className="projet__container">
-            {ProjectsGH.map(projet=><Card  key={projet.id} styleBlack={styleBlack} picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
+            {ProjectsGH.map(projet=><Card   styleBlack={styleBlack} key={projet.id}  picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
           </div>
-          <div className="projet__picture">
-            <div className="projet__picture__inner"> </div> 
-          </div>
+       
         </article>
       </section>
-      <section className="parcours" style={styleBlack}>
-        <div className="parcours__container font-bebas" style={styleBlack}>
+      <section className="parcours" >
+        <div className="parcours__container font-bebas " style={styleBlack}>
           <p className='parcours__container__first parcours__text' >Cette formation m'a permis de pratiquer à travers différents projets. </p>
-          <p className='parcours__container__second parcours__text'>Je continue à monter en compétences avec des projets persos.</p>
+          <p className='parcours__container__second parcours__text'>Je continue à monter en compétences avec de nouveaux projets persos.</p>
           <p className='parcours__container__third parcours__text'>Actuellement, j'apprends <span className="remplace-text">React Native</span> </p>
            <div className="parcours__container__picture picture-first"></div>
            <div className="parcours__container__picture picture-second"></div>
@@ -303,7 +291,7 @@ function Portfolio() {
             <div className="parcours__contact__container">
               <h2 className='parcours__contact__container__title font-bebas'>More  <span className="marquee__point"><span className="marquee__point__inner"><span>.</span><span>.</span><span>.</span><span>.</span></span></span></h2>
               <div className='parcours__contact__container__icon-div'>
-                <div className="scale"><a className="parcours__contact__container__icon-div__link far fa-envelope fa-4x "  rel="mail" target="blank" href="mailto:koch.christopher@hotmail.fr"> </a></div>
+                <div className="scale"><a className="parcours__contact__container__icon-div__link "  rel="mail" target="blank" href="mailto:koch.christopher@hotmail.fr"><i className="far fa-envelope fa-4x "></i> </a></div>
                 <div className="scale"><a className="parcours__contact__container__icon-div__link fab fa-linkedin fa-4x"  rel="linkedin" target="blank" href="https://www.linkedin.com/in/christopher-koch-frontend/"> </a></div>
                 <div className="scale"><a className="parcours__contact__container__icon-div__link fab fa-github-square fa-4x" rel="github" target="blank" href="https://github.com/kochky"> </a></div>
                 <div className="scale"><a className="parcours__contact__container__icon-div__link far fa-file fa-4x"  rel="cv" href="./CV_Koch_Christopher.pdf" download > </a></div>
