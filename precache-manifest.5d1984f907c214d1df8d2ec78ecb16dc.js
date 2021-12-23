@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0476321ada4ae27e8ab7aa296b232220",
+    "revision": "7be56f24274dff8ecfbc964f42fcbfbf",
     "url": "/portfolio/index.html"
   },
   {
-    "revision": "2cd0663e4006e57dabb8",
-    "url": "/portfolio/static/css/main.162a1fd0.chunk.css"
+    "revision": "f00b71b18268ff380732",
+    "url": "/portfolio/static/css/main.18b76b8e.chunk.css"
   },
   {
     "revision": "e7e6efd63dc7335305a8",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/portfolio/static/js/2.78ac08ff.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2cd0663e4006e57dabb8",
-    "url": "/portfolio/static/js/main.91614c16.chunk.js"
+    "revision": "f00b71b18268ff380732",
+    "url": "/portfolio/static/js/main.68fc6da3.chunk.js"
   },
   {
     "revision": "7a6cc99bd8f08f9fa6ec",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/portfolio/static/media/Aeonik-Regular.844324dc.otf"
   },
   {
-    "revision": "00aeed55ae8bac305fc2092db642dab7",
-    "url": "/portfolio/static/media/book.00aeed55.webp"
+    "revision": "77b0d58818249d6e0632d934ddaa4ee2",
+    "url": "/portfolio/static/media/book.77b0d588.webp"
   },
   {
     "revision": "b11eefa03178688f277397a578170b00",
