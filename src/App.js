@@ -5,13 +5,23 @@ import  "./css/style.css"
 function App(){
 const [loading,setLoading]=useState(true)
 
+    function detectDevice(){
+        const userAgent = navigator.userAgent.toLowerCase();
+        var isMobile = /iPhone|Android/i.test(navigator.userAgent);
+        const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+        if(!isMobile&& !isTablet){
+            setLoading(true,setTimeout(()=>{setLoading(false)},4000))
+        }
+
+    }
     useEffect(() => {
         setTimeout(()=>{setLoading(false)},4000);
 
         }, [])
 
     useEffect(() => {
-        window.addEventListener("resize",()=>setLoading(true,setTimeout(()=>{setLoading(false)},4000)))
+        window.addEventListener("resize",()=>{detectDevice()})
+        
        
       },[])
 

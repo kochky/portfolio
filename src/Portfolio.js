@@ -17,223 +17,229 @@ function Portfolio() {
   const ref=useRef(null)
 
   useEffect(()=>{
-    gsap.registerPlugin(ScrollTrigger,TextPlugin)
+    let mounted= true
+    if (mounted){
+      gsap.registerPlugin(ScrollTrigger,TextPlugin)
 
-    // //animation faisant fuir "developpeur" et "front end" en scrollant
-    gsap.to(".developpeur",{
-      scrollTrigger:{
-        trigger:".developpeur",
-        start:"top 50%",
-        end:"top 30%",
-        toggleActions:"restart none reverse reverse",
-        scrub:1,
-      },
-      x:"-150vw",
-    });
-    
-    gsap.to(".front-end",{
-      scrollTrigger:{
-        trigger:".developpeur",
-        start:"top 50%",
-        end:"top 30%",
-        toggleActions:"restart none reverse reverse",
-        scrub:0.5,
-      },
-      x:"150vw",
-    });
-
-    //animation en arrivant sur la page présentation
-    gsap.fromTo(".name",
-    {y:'-20vh'},
-    {y:0},);
-
-
-    gsap.fromTo(".developpeur",
-      {x:'20vw'},
-      {x:0},
-    );
-    
-    gsap.fromTo(".front-end",
-    {x:'-20vw'},
-    {x:0},
-    );
+      // //animation faisant fuir "developpeur" et "front end" en scrollant
+      gsap.to(".developpeur",{
+        scrollTrigger:{
+          trigger:".developpeur",
+          start:"top 50%",
+          end:"top 30%",
+          toggleActions:"restart none reverse reverse",
+          scrub:1,
+        },
+        x:"-150vw",
+      });
       
-    //permet le pin le snap des sections
-    let sections=gsap.utils.toArray(".snapDiv");
-    let articles=gsap.utils.toArray("article");
- 
-    const bigTl=gsap.timeline();
-    bigTl
-    .to(".presentation", {x:0,
-      scrollTrigger:{
-        trigger:'.presentation',
-        start:"top top",
-        end:"80%",
-        scrub:1,
-        pin:true,
-        anticipatePin:1, 
-      }
-    })
-    .to(sections,{
-      ease:"none",
-      scrollTrigger:{
-        trigger:".presentation",
-        scrub:1,
-        snap:1,
-      }
-    })
-    .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
-      trigger:".description",
-      start:"top bottom",
-      endTrigger:".description",
-      end:"top top",
-      toggleActions:"restart none reverse reverse",
-      scrub:3,
-    }})
-    
-    .fromTo(".description__div",{x:"100vw"},{x:"0vw", scrollTrigger:{
-      trigger:".description__title",
-      start:"top 50%",
-      end:"top 50%",
-      toggleActions:"restart none reverse reverse",
-      scrub:2,
-      duration:1
-    }})
+      gsap.to(".front-end",{
+        scrollTrigger:{
+          trigger:".developpeur",
+          start:"top 50%",
+          end:"top 30%",
+          toggleActions:"restart none reverse reverse",
+          scrub:0.5,
+        },
+        x:"150vw",
+      });
 
-    .to(articles,{
-      xPercent:-100,
-      ease:"none",
-      scrollTrigger:{
-        trigger:".vertical-container",
-        pin:true,
-        scrub:1,
-        snap:1/12,
-      }
-    })
+      //animation en arrivant sur la page présentation
+      gsap.fromTo(".name",
+      {y:'-20vh'},
+      {y:0},);
+
+
+      gsap.fromTo(".developpeur",
+        {x:'20vw'},
+        {x:0},
+      );
+      
+      gsap.fromTo(".front-end",
+      {x:'-20vw'},
+      {x:0},
+      );
+        
+      //permet le pin le snap des sections
+      let sections=gsap.utils.toArray(".snapDiv");
+      let articles=gsap.utils.toArray("article");
   
-    
-    // //faire apparaitre l'image QRcode en quittant la page
-    gsap.fromTo(".description__picture",{yPercent:100},{yPercent:0,
-      scrollTrigger:{
+      const bigTl=gsap.timeline();
+      bigTl
+      .to(".presentation", {x:0,
+        scrollTrigger:{
+          trigger:'.presentation',
+          start:"top top",
+          end:"80%",
+          scrub:1,
+          pin:true,
+          anticipatePin:1, 
+        }
+      })
+      .to(sections,{
+        ease:"none",
+        scrollTrigger:{
+          trigger:".presentation",
+          scrub:1,
+          snap:1,
+        }
+      })
+      .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
+        trigger:".description",
+        start:"top bottom",
+        endTrigger:".description",
+        end:"top top",
+        toggleActions:"restart none reverse reverse",
+        scrub:3,
+      }})
+      
+      .fromTo(".description__div",{x:"100vw"},{x:"0vw", scrollTrigger:{
         trigger:".description__title",
-        scrub:1,
-        end:"top 40%",
-        }});
-    gsap.to(".description__picture",{x:"0vw",
-      scrollTrigger:{
-        trigger:".projet",
-        start:"1% top" ,
-        end:"1% top",
+        start:"top 50%",
+        end:"top 50%",
+        toggleActions:"restart none reverse reverse",
         scrub:2,
-      }});
+        duration:1
+      }})
 
-    // //anime les ... de about me
-    const pointTl=gsap.timeline({scrollTrigger:{
-      trigger:".description",
-    }});
-    pointTl.fromTo(".first-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,delay:0.1,duration:0.6,
-    })
-    .fromTo(".second-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
-    })
-    .fromTo(".third-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
-    });
-
-    // //fait apparaitre le texte au fur et à mesure
-    const textTl=gsap.timeline({scrollTrigger:{
-      trigger:".description__div",
-      start:"bottom bottom",
-      end:"bottom 95%",
-      toggleActions:"restart none reverse reverse",
-    }});
-    textTl.fromTo(".description__div__second",{opacity:0},{opacity:1,ease:"none",
-    })
-      .fromTo(".description__div__third",{opacity:0},{opacity:1,ease:"none",   
-    });
+      .to(articles,{
+        xPercent:-100,
+        ease:"none",
+        scrollTrigger:{
+          trigger:".vertical-container",
+          pin:true,
+          scrub:1,
+          snap:1/12,
+        }
+      })
     
-    // //Anime le cadre autour de .description
-    gsap.fromTo(".sright",{xPercent:-100},{xPercent:100,ease:"power1.inOut",repeat:-1,duration:8})
-    gsap.fromTo(".sdown",{yPercent:-100},{yPercent:100,ease:"power1.inOut",repeat:-1,duration:8,delay:4})
-    gsap.fromTo(".sleft",{xPercent:100},{xPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:8})
-    gsap.fromTo(".sup",{yPercent:100},{yPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:12});
+      
+      // //faire apparaitre l'image QRcode en quittant la page
+      gsap.fromTo(".description__picture",{yPercent:100},{yPercent:0,
+        scrollTrigger:{
+          trigger:".description__title",
+          scrub:1,
+          end:"top 40%",
+          }});
+      gsap.to(".description__picture",{x:"0vw",
+        scrollTrigger:{
+          trigger:".projet",
+          start:"1% top" ,
+          end:"1% top",
+          scrub:2,
+        }});
 
-    //inverse les couleurs quand .parcours est visible
-    ScrollTrigger.create({
-      trigger:".parcours",
-      start:"top 99%",
-      onEnter:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
-      onLeave:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"}),
-      onEnterBack:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
-      onLeaveBack:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"})
+      // //anime les ... de about me
+      const pointTl=gsap.timeline({scrollTrigger:{
+        trigger:".description",
+      }});
+      pointTl.fromTo(".first-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,delay:0.1,duration:0.6,
+      })
+      .fromTo(".second-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
+      })
+      .fromTo(".third-point-exclamation",{color:"white"},{color:"#E1A624",repeat:-1,duration:0.6,delay:0.1
+      });
 
-    });
+      // //fait apparaitre le texte au fur et à mesure
+      const textTl=gsap.timeline({scrollTrigger:{
+        trigger:".description__div",
+        start:"bottom bottom",
+        end:"bottom 95%",
+        toggleActions:"restart none reverse reverse",
+      }});
+      textTl.fromTo(".description__div__second",{opacity:0},{opacity:1,ease:"none",
+      })
+        .fromTo(".description__div__third",{opacity:0},{opacity:1,ease:"none",   
+      });
+      
+      // //Anime le cadre autour de .description
+      gsap.fromTo(".sright",{xPercent:-100},{xPercent:100,ease:"power1.inOut",repeat:-1,duration:8})
+      gsap.fromTo(".sdown",{yPercent:-100},{yPercent:100,ease:"power1.inOut",repeat:-1,duration:8,delay:4})
+      gsap.fromTo(".sleft",{xPercent:100},{xPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:8})
+      gsap.fromTo(".sup",{yPercent:100},{yPercent:-100,ease:"power1.inOut",repeat:-1,duration:8,delay:12});
 
-
-    //remplace le texte sur "ce que j'apprends en ce moment"
-    const remplaceTl= gsap.timeline({repeat:-1,duration:0,delay:0,ease:"none",type:"diff",
-    })
-    remplaceTl.to(".remplace-text",{
-      delay:0,
-      duration:2,
-      text:{
-        value:"TypeScript",
-        speed:0.5,
-      }})
-    .to(".remplace-text",{
-      delay:0,
-      duration:2,
-      text:{
-        value:"Next.js",
-        speed:0.5,
-      }
-    })
-    .to(".remplace-text",{
-      delay:0,
-      duration:2,
-      text:{
-        value:"React Native",
-        speed:0.5,
-      }
-    });
-
-    const parcoursTL=gsap.timeline({
-      scrollTrigger:{
-        trigger:".parcours__container",
-        start:"top top",
-        scrub:2,
-      }
-    })
-    parcoursTL.add("start")
-    //séparation des 3 images
-    .to(".picture-second",{xPercent:150},"start")
-    .to(".picture-first",{xPercent:-150},"start")
-    //images accompagnent le scroll
-    .add("middle")
-    .to(".parcours__container__picture",{y:'30vh',ease:"none"},"middle")
-    //Dévoile les contacts
-    .to(".parcours__container",{y:"-32vh"},"middle")
-    .from(".scale",{scale:0,ease:"none"})
-    .from(".parcours__container__hidden-text",{opacity:0})
-    .to(".parcours__text",{opacity:0})
-
-    //Parcours reste figé
-    gsap.to(".parcours",{ease:"none",
-      scrollTrigger:{
+      //inverse les couleurs quand .parcours est visible
+      ScrollTrigger.create({
         trigger:".parcours",
-        pin:true,
+        start:"top 99%",
+        onEnter:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
+        onLeave:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"}),
+        onEnterBack:()=>setStyleBlack({borderColor:"white",color:"white",backgroundColor:"black"}),
+        onLeaveBack:()=>setStyleBlack({borderColor:"black",color:"black",backgroundColor:"white"})
+
+      });
+
+
+      //remplace le texte sur "ce que j'apprends en ce moment"
+      const remplaceTl= gsap.timeline({repeat:-1,duration:0,delay:0,ease:"none",type:"diff",
+      })
+      remplaceTl.to(".remplace-text",{
+        delay:0,
+        duration:2,
+        text:{
+          value:"TypeScript",
+          speed:0.5,
+        }})
+      .to(".remplace-text",{
+        delay:0,
+        duration:2,
+        text:{
+          value:"Next.js",
+          speed:0.5,
+        }
+      })
+      .to(".remplace-text",{
+        delay:0,
+        duration:2,
+        text:{
+          value:"React Native",
+          speed:0.5,
+        }
+      });
+
+      const parcoursTL=gsap.timeline({
+        scrollTrigger:{
+          trigger:".parcours__container",
+          start:"top top",
+          scrub:2,
+        }
+      })
+      parcoursTL.add("start")
+      //séparation des 3 images
+      .to(".picture-second",{xPercent:150},"start")
+      .to(".picture-first",{xPercent:-150},"start")
+      //images accompagnent le scroll
+      .add("middle")
+      .to(".parcours__container__picture",{y:'30vh',ease:"none"},"middle")
+      //Dévoile les contacts
+      .to(".parcours__container",{y:"-32vh"},"middle")
+      .from(".scale",{scale:0,ease:"none"})
+      .from(".parcours__container__hidden-text",{opacity:0})
+      .to(".parcours__text",{opacity:0})
+
+      //Parcours reste figé
+      gsap.to(".parcours",{ease:"none",
+        scrollTrigger:{
+          trigger:".parcours",
+          pin:true,
+          scrub:1,
+          anticipatePin:1,
+          pinSpacing:false,
+
+        }})
+
+      //snap le .parcours
+      ScrollTrigger.create({
+        trigger:".parcours",
+        start:"top bottom",
+        end:"top top",
+        snap:1,
         scrub:1,
-        anticipatePin:1,
-        pinSpacing:false,
-
-      }})
-
-    //snap le .parcours
-    ScrollTrigger.create({
-      trigger:".parcours",
-      start:"top bottom",
-      end:"top top",
-      snap:1,
-      scrub:1,
-    })
+      })
+    }
+    return function cleanup(){
+      mounted=false
+    }
         
   },[])
   
