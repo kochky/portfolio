@@ -27,7 +27,25 @@ function Portfolio() {
         gsap.set("body", {overflowY: "hidden"});
         gsap.to(window, {
           scrollTo: {y: i*window.innerHeight, autoKill: false},
-          duration: 4,
+          duration: 2,
+          overwrite: true,
+          onComplete: () => gsap.set("body", {overflowY: "auto"})
+        });     
+      }
+      function goToProjetc() {
+        gsap.set("body", {overflowY: "hidden"});
+        gsap.to(window, {
+          scrollTo: {y: 1.25*window.innerHeight, autoKill: false},
+          duration: 1,
+          overwrite: true,
+          onComplete: () => gsap.set("body", {overflowY: "auto"})
+        });     
+      }
+      function goToEnd() {
+        gsap.set("body", {overflowY: "hidden"});
+        gsap.to(window, {
+          scrollTo: {y: "max", autoKill: false},
+          duration: 1,
           overwrite: true,
           onComplete: () => gsap.set("body", {overflowY: "auto"})
         });     
@@ -74,30 +92,9 @@ function Portfolio() {
       );
         
       //permet le pin le snap des sections
-      let sections=gsap.utils.toArray(".snapDiv");
       let articles=gsap.utils.toArray("article");
 
       //Scroll du premier panel au deuxieme et bloque les scrolls de l'user pendant l'animation
-    
-      gsap.to(".description", {
-        scrollTrigger:{
-          trigger: ".description",
-          onEnter: () => goToSection(1),
-        }
-      })
-      gsap.to(".presentation", {
-        scrollTrigger:{
-          trigger: ".presentation",
-          onEnterBack: () => goToSection(0),
-        }
-      })
-      gsap.to(".description", {
-        scrollTrigger:{
-          trigger: ".presentation",
-          onEnterBack: () => goToSection(1),
-        }
-      })
-
       const bigTl=gsap.timeline();
       bigTl
       .to(".presentation", {x:0,
@@ -108,6 +105,34 @@ function Portfolio() {
           scrub:1,
           pin:true,
           //anticipatePin:1, 
+        }
+      })
+      .to(".description", {
+        scrollTrigger:{
+          trigger: ".description",
+          onEnter: () => goToSection(1),
+        }
+      })
+      .to(".presentation", {
+        scrollTrigger:{
+          trigger: ".presentation",
+          onEnterBack: () => goToSection(0),
+        }
+      })
+      .to(".description", {
+        scrollTrigger:{
+          trigger: ".presentation",
+          onEnterBack: () => goToSection(1),
+        }
+      })
+      .to(".projet", {
+        scrollTrigger:{
+          trigger: ".projet",
+          start:"+=50",
+          markers:true,
+          onEnter: () => goToProjetc(),
+          onEnterBack: () => goToProjetc(),
+
         }
       })
       .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
@@ -135,11 +160,11 @@ function Portfolio() {
           trigger:".vertical-container",
           pin:true,
           scrub:1,
-          snap:{
-            snapTo:1/12,
-            duration:0.2,
-            delay:1,
-          },
+          // snap:{
+          //   snapTo:1/12,
+          //   duration:0.2,
+          //   delay:1,
+          // },
         }
       })
     
@@ -243,6 +268,7 @@ function Portfolio() {
       .to(".parcours__container__picture",{y:'30vh',ease:"none"},"middle")
       //Dévoile les contacts
       .to(".parcours__container",{y:"-32vh"},"middle")
+      .to('.parcours',{onEnter: () => goToEnd(),onEnterBack: () => goToEnd()})
       .from(".scale",{scale:0,ease:"none"})
       .from(".parcours__container__hidden-text",{opacity:0})
       .to(".parcours__text",{opacity:0})
@@ -280,7 +306,7 @@ function Portfolio() {
        <div  className="homepage" >
         <Mirror opacityHover={opacityHover} mirrorStyle={mirrorStyle} />
         <div className="marquee"><div className="marquee__inner"><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span><span>Portfolio</span></div></div>
-        <section  className="presentation snapDiv">
+        <section  className="presentation ">
           <div className="presentation__container opacityQuick">
             <span className={"presentation__container__underline name "} onMouseOut={()=>{setOpacityHover(0);setMirrorStyle({width:"50px",height:'50px'})}} onMouseEnter={()=>{setOpacityHover(1);setMirrorStyle({width:"500px",height:'500px'})}}>
               Christopher<br/>
@@ -291,19 +317,18 @@ function Portfolio() {
         </section>
       </div>
       <section className='vertical-container'>
-        <article className="description snapDiv " >
+        <article className="description  " >
         <div className="description__div__line top"><div className="description__div__line__ball sright"></div></div>
         <div className="description__div__line bottom"><div className="description__div__line__ball sleft"></div></div>
         <div className="description__div__line left"><div className="description__div__line__ball sup"></div></div>
         <div className="description__div__line right"><div className="description__div__line__ball sdown"></div></div>
-
-            <h1 className="description__title ">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
-            <div className="description__picture" ></div>
-            <div className="description__div font-bebas"> 
-              <p>J'ai 33 ans et j'habite Marseille ! </p>
-              <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
-              <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
-            </div>
+          <h1 className="description__title ">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
+          <div className="description__picture" ></div>
+          <div className="description__div font-bebas"> 
+            <p>J'ai 33 ans et j'habite Marseille ! </p>
+            <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
+            <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
+          </div>
         </article>
         <article className="projet" style={styleBlack} >
           <h1 className="projet__title">Mes projets</h1>
