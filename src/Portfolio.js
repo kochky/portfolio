@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import ProjectsGH from './data/ProjectsGH';
 import Card from './components/Card';
 import Mirror from './components/Mirror';
@@ -19,9 +20,21 @@ function Portfolio() {
   useEffect(()=>{
     let mounted= true
     if (mounted){
-      gsap.registerPlugin(ScrollTrigger,TextPlugin)
+      gsap.registerPlugin(ScrollTrigger,TextPlugin,ScrollToPlugin)
 
-      // //animation faisant fuir "developpeur" et "front end" en scrollant
+
+      function goToSection(i, anim) {
+        gsap.set("body", {overflowY: "hidden"});
+        gsap.to(window, {
+          scrollTo: {y: i*window.innerHeight, autoKill: false},
+          duration: 4,
+          overwrite: true,
+          onComplete: () => gsap.set("body", {overflowY: "auto"})
+        });     
+      }
+      
+
+      //animation faisant fuir "developpeur" et "front end" en scrollant
       gsap.to(".developpeur",{
         scrollTrigger:{
           trigger:".developpeur",
@@ -63,7 +76,28 @@ function Portfolio() {
       //permet le pin le snap des sections
       let sections=gsap.utils.toArray(".snapDiv");
       let articles=gsap.utils.toArray("article");
-  
+
+      //Scroll du premier panel au deuxieme et bloque les scrolls de l'user pendant l'animation
+    
+      gsap.to(".description", {
+        scrollTrigger:{
+          trigger: ".description",
+          onEnter: () => goToSection(1),
+        }
+      })
+      gsap.to(".presentation", {
+        scrollTrigger:{
+          trigger: ".presentation",
+          onEnterBack: () => goToSection(0),
+        }
+      })
+      gsap.to(".description", {
+        scrollTrigger:{
+          trigger: ".presentation",
+          onEnterBack: () => goToSection(1),
+        }
+      })
+
       const bigTl=gsap.timeline();
       bigTl
       .to(".presentation", {x:0,
@@ -73,15 +107,7 @@ function Portfolio() {
           end:"80%",
           scrub:1,
           pin:true,
-          anticipatePin:1, 
-        }
-      })
-      .to(sections,{
-        ease:"none",
-        scrollTrigger:{
-          trigger:".presentation",
-          scrub:1,
-          snap:1,
+          //anticipatePin:1, 
         }
       })
       .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
@@ -109,7 +135,11 @@ function Portfolio() {
           trigger:".vertical-container",
           pin:true,
           scrub:1,
-          snap:1/12,
+          snap:{
+            snapTo:1/12,
+            duration:0.2,
+            delay:1,
+          },
         }
       })
     
@@ -239,7 +269,7 @@ function Portfolio() {
     }
     return function cleanup(){
       mounted=false
-    }
+     }
         
   },[])
   
@@ -260,8 +290,8 @@ function Portfolio() {
           </div>
         </section>
       </div>
-      <section className='vertical-container snapDiv'>
-        <article className="description " >
+      <section className='vertical-container'>
+        <article className="description snapDiv " >
         <div className="description__div__line top"><div className="description__div__line__ball sright"></div></div>
         <div className="description__div__line bottom"><div className="description__div__line__ball sleft"></div></div>
         <div className="description__div__line left"><div className="description__div__line__ball sup"></div></div>
