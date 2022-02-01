@@ -23,31 +23,31 @@ function Portfolio() {
       gsap.registerPlugin(ScrollTrigger,TextPlugin,ScrollToPlugin)
 
 
-      function goToSection(i, anim) {
-        gsap.set("body", {overflowY: "hidden"});
+      function goToSection(i, time) {
+        gsap.set("body", {overflow: "hidden"});
         gsap.to(window, {
           scrollTo: {y: i*window.innerHeight, autoKill: false},
-          duration: 2,
+          duration: time,
           overwrite: true,
-          onComplete: () => gsap.set("body", {overflowY: "auto"})
+          onComplete: () => gsap.set("body", {overflow: "auto"})
         });     
       }
-      function goToProjetc() {
-        gsap.set("body", {overflowY: "hidden"});
+      function goToProject() {
+        gsap.set("body", {overflow: "hidden"});
         gsap.to(window, {
           scrollTo: {y: 1.25*window.innerHeight, autoKill: false},
           duration: 1,
           overwrite: true,
-          onComplete: () => gsap.set("body", {overflowY: "auto"})
+          onComplete: () => gsap.set("body", {overflow: "auto"})
         });     
       }
       function goToEnd() {
-        gsap.set("body", {overflowY: "hidden"});
+        gsap.set("body", {overflow: "hidden"});
         gsap.to(window, {
           scrollTo: {y: "max", autoKill: false},
           duration: 1,
           overwrite: true,
-          onComplete: () => gsap.set("body", {overflowY: "auto"})
+          onComplete: () => gsap.set("body", {overflow: "auto"})
         });     
       }
       
@@ -110,29 +110,28 @@ function Portfolio() {
       .to(".description", {
         scrollTrigger:{
           trigger: ".description",
-          onEnter: () => goToSection(1),
+          onEnter: () => goToSection(1,2),
         }
       })
       .to(".presentation", {
         scrollTrigger:{
           trigger: ".presentation",
-          onEnterBack: () => goToSection(0),
+          onEnterBack: () => goToSection(0,2),
         }
       })
       .to(".description", {
         scrollTrigger:{
-          trigger: ".presentation",
-          onEnterBack: () => goToSection(1),
+          trigger: ".description",
+          start:"+=25%",
+          end:"+=0%",        
+          onEnterBack: () => goToSection(1,1.5),
         }
       })
       .to(".projet", {
         scrollTrigger:{
           trigger: ".projet",
           start:"+=50",
-          markers:true,
-          onEnter: () => goToProjetc(),
-          onEnterBack: () => goToProjetc(),
-
+          onEnter: () => goToProject(),
         }
       })
       .fromTo(".description__title",{rotate:'-50',x:"-100vw"},{rotate:0,x:0, scrollTrigger:{
@@ -160,11 +159,11 @@ function Portfolio() {
           trigger:".vertical-container",
           pin:true,
           scrub:1,
-          // snap:{
-          //   snapTo:1/12,
-          //   duration:0.2,
-          //   delay:1,
-          // },
+          snap:{
+            snapTo:1/12,
+            duration:0.2,
+            delay:1,
+          },
         }
       })
     
@@ -181,7 +180,7 @@ function Portfolio() {
           trigger:".projet",
           start:"1% top" ,
           end:"1% top",
-          scrub:2,
+          scrub:1,
         }});
 
       // //anime les ... de about me
@@ -287,7 +286,7 @@ function Portfolio() {
       //snap le .parcours
       ScrollTrigger.create({
         trigger:".parcours",
-        start:"top bottom",
+        start:"top+=10% bottom",
         end:"top top",
         snap:1,
         scrub:1,
