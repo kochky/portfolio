@@ -1,8 +1,7 @@
-# Getting Started with Create React App
+# Portfolio comprenant tout mes projets
 
-Portfolio comprenant tout mes projets
 
-Disponible à https://kochky.github.io/portfolio/
+## Disponible à https://kochky.github.io/portfolio/
 
 
 ### Languages used
