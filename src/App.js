@@ -3,7 +3,7 @@ import Portfolio from "./Portfolio"
 import  "./css/style.css"
 
 function App(){
-const [loading,setLoading]=useState(false)
+const [loading,setLoading]=useState(true)
 
     function detectDevice(){
         const userAgent = navigator.userAgent.toLowerCase();
