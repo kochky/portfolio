@@ -41,7 +41,7 @@ const ProjectsGH= ([
     },
     {   id:4,
         title:"FishEye",
-        description:"Site accessible pour une plateforme de photographes. Respect maquette+ page dynamique+fetch fichier JSON+barre filtre+ navigation clavier et lecteur d'écran",
+        description:"Site accessible pour une plateforme de photographes.Fetch fichier JSON+ barre filtre+ navigation clavier et lecteur d'écran",
         tools:["HTML","CSS","SASS","JavaScript","ARIA"],
         picture:"./img/fishEye.png",
         buttons:[

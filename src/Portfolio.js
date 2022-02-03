@@ -18,6 +18,7 @@ function Portfolio() {
   const ref=useRef(null)
 
   useEffect(()=>{
+    window.addEventListener("resize",()=>{mounted=false})
     let mounted= true
     if (mounted){
       gsap.registerPlugin(ScrollTrigger,TextPlugin,ScrollToPlugin)
@@ -35,7 +36,7 @@ function Portfolio() {
       function goToProject() {
         gsap.set("body", {overflow: "hidden"});
         gsap.to(window, {
-          scrollTo: {y: 1.25*window.innerHeight, autoKill: false},
+          scrollTo: {y: 1.75*window.innerHeight, autoKill: false},
           duration: 1,
           overwrite: true,
           onComplete: () => gsap.set("body", {overflow: "auto"})
@@ -116,6 +117,7 @@ function Portfolio() {
       .to(".presentation", {
         scrollTrigger:{
           trigger: ".presentation",
+          end:"bottom 5%",
           onEnterBack: () => goToSection(0,2),
         }
       })
@@ -156,14 +158,16 @@ function Portfolio() {
         xPercent:-100,
         ease:"none",
         scrollTrigger:{
-          trigger:".vertical-container",
-          pin:true,
-          scrub:1,
-          snap:{
-            snapTo:1/12,
-            duration:0.2,
-            delay:1,
-          },
+        trigger:".vertical-container",
+        start:"top top",
+        end:"+=6000",
+        pin:true,
+        scrub:true,
+        snap:{
+          snapTo:1/12,
+          // duration:0.5,
+          // delay:0.5,
+        },
         }
       })
     
@@ -316,23 +320,23 @@ function Portfolio() {
         </section>
       </div>
       <section className='vertical-container'>
-        <article className="description  " >
-        <div className="description__div__line top"><div className="description__div__line__ball sright"></div></div>
-        <div className="description__div__line bottom"><div className="description__div__line__ball sleft"></div></div>
-        <div className="description__div__line left"><div className="description__div__line__ball sup"></div></div>
-        <div className="description__div__line right"><div className="description__div__line__ball sdown"></div></div>
-          <h1 className="description__title ">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
-          <div className="description__picture" ></div>
-          <div className="description__div font-bebas"> 
-            <p>J'ai 33 ans et j'habite Marseille ! </p>
-            <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
-            <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
-          </div>
+        <article className="description" >
+          <div className="description__div__line top"><div className="description__div__line__ball sright"></div></div>
+          <div className="description__div__line bottom"><div className="description__div__line__ball sleft"></div></div>
+          <div className="description__div__line left"><div className="description__div__line__ball sup"></div></div>
+          <div className="description__div__line right"><div className="description__div__line__ball sdown"></div></div>
+            <h1 className="description__title ">About me <span className="first-point-exclamation">.</span><span className="second-point-exclamation">.</span><span className="third-point-exclamation">.</span></h1>
+            <div className="description__picture" ></div>
+            <div className="description__div font-bebas"> 
+              <p>J'ai 33 ans et j'habite Marseille ! </p>
+              <p className='description__div__second'>Directeur dans la grande distribution, je me suis lancé dans le développement front-end par passion.</p>
+              <p className='description__div__third'>J'ai récemment suivi et fini ma formation de développeur d'application Javascript React auprès de Openclassrooms.</p> 
+            </div>
         </article>
         <article className="projet" style={styleBlack} >
           <h1 className="projet__title">Mes projets</h1>
           <div className="projet__container">
-            {ProjectsGH.map(projet=><Card   styleBlack={styleBlack} key={projet.id}  picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
+            {ProjectsGH.map(projet=><Card styleBlack={styleBlack} key={projet.id}  picture={projet.picture} title={projet.title} description={projet.description} buttons={projet.buttons} tools={projet.tools}/>).reverse()}
           </div>
        
         </article>
@@ -359,7 +363,7 @@ function Portfolio() {
             </div> 
           </div> 
       </section>
-      <div className="go-back" onClick={()=>ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })}>Back to Home</div>
+      <div className="go-back" onClick={()=>ref.current.scrollIntoView({ behavior: 'auto', block: 'start' })}>Back to Home</div>
       <section className="empty">
       </section>
     </main>

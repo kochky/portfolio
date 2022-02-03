@@ -16,6 +16,13 @@ body {
   min-width: 320px;
   user-select: none;
   overflow-x: hidden;
+  height: 100%;
+  overflow-y: auto;
+}
+
+html, body {
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: contain;
 }
 
 a, a:active, a:visited {
@@ -248,7 +255,7 @@ ul, li {
 }
 @media screen and (max-height: 1024px), screen and (max-width: 1024px) {
   .presentation {
-    font-size: 6rem;
+    font-size: 5rem;
   }
 }
 @media screen and (max-height: 768px), screen and (max-width: 768px) {
@@ -331,12 +338,12 @@ ul, li {
 .description__title {
   font-size: 6rem;
   position: absolute;
-  top: 30vh;
+  top: 35vh;
   transform-origin: 50% 40vh;
 }
-@media screen and (max-width: 768px), screen and (max-height: 768px) {
+@media screen and (max-width: 868px), screen and (max-height: 868px) {
   .description__title {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }
 @media screen and (max-width: 400px), screen and (max-height: 400px) {
@@ -369,7 +376,7 @@ ul, li {
   font-size: 2rem;
   bottom: 10%;
 }
-@media screen and (max-width: 768px), screen and (max-height: 768px) {
+@media screen and (max-width: 868px), screen and (max-height: 868px) {
   .description__div {
     font-size: 1rem;
   }
@@ -490,6 +497,9 @@ ul, li {
 .card-container__description {
   padding-left: 5%;
   height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-height: 768px), screen and (max-width: 768px) {
   .card-container__description {
@@ -506,6 +516,9 @@ ul, li {
   height: 5%;
   display: flex;
   flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-height: 768), screen and (max-width: 768) {
   .card-container__tools {
