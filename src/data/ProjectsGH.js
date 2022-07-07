@@ -140,6 +140,50 @@ const ProjectsGH= ([
             {url:"https://github.com/kochky/jeu-5000",
             type:"Source Code"}
         ],
+    },
+    {   id:13,
+        title:"Dart App",
+        description:"App mobile pour noter scores des fléchettes.",
+        tools:["React Native"],
+        picture:"./img/dartapp.jpeg",
+        buttons:[
+            {url:"https://github.com/kochky/DartApp",
+            type:"Source Code"}
+        ],
+    },
+    {   id:14,
+        title:"Diagnostic",
+        description:"App mobile pour diagnostic medical.",
+        tools:["React Native"],
+        picture:"./img/diagnostic.jpeg",
+        buttons:[
+            {url:"https://github.com/kochky/Diagnostic",
+            type:"Source Code"}
+        ],
+    },
+    {   id:15,
+        title:"Ma Copro'",
+        description:"Plateforme pour gérer une copropriété",
+        tools:["NextJs","TypeScript","Styled Components","Netlify"],
+        picture:"./img/copro.png",
+        buttons:[
+            {url:"https://github.com/kochky/syndic-copro",
+            type:"Source Code"},
+            {url:"http://copro-villa-laure.fr/",
+            type:"Page Web"},
+        ],
+    },
+    {   id:16,
+        title:"Ma Copro'",
+        description:"Back end pour projet Ma Copro",
+        tools:["NodeJS","express","GraphQL","MongoDB","Heroku"],
+        picture:"./img/graphql.png",
+        buttons:[
+            {url:"https://github.com/kochky/syndic-backend",
+            type:"Source Code"},
+            {url:"https://copro.herokuapp.com/graphql",
+            type:"Page Web"},
+        ],
     }
 ])
 

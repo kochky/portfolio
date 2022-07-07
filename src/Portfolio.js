@@ -36,7 +36,7 @@ function Portfolio() {
       function goToProject() {
         gsap.set("body", {overflow: "hidden"});
         gsap.to(window, {
-          scrollTo: {y: 1.75*window.innerHeight, autoKill: false},
+          scrollTo: {y: 1.60*window.innerHeight, autoKill: false},
           duration: 1,
           overwrite: true,
           onComplete: () => gsap.set("body", {overflow: "auto"})
@@ -160,11 +160,11 @@ function Portfolio() {
         scrollTrigger:{
         trigger:".vertical-container",
         start:"top top",
-        end:"+=6000",
+        end:"+=12000",
         pin:true,
-        scrub:true,
+        scrub:1,
         snap:{
-          snapTo:1/12,
+          snapTo:1/16,
           // duration:0.5,
           // delay:0.5,
         },
@@ -205,7 +205,7 @@ function Portfolio() {
         end:"bottom 95%",
         toggleActions:"restart none reverse reverse",
       }});
-      textTl.fromTo(".description__div__second",{opacity:0},{opacity:1,ease:"none",
+      textTl.fromTo(".description__div__second",{opacity:0},{delay:0.5,opacity:1,ease:"none",
       })
         .fromTo(".description__div__third",{opacity:0},{opacity:1,ease:"none",   
       });
